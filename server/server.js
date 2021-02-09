@@ -16,6 +16,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
 
 
+//handle trainers to assing plans/create content for client
+app.use('/api/trainers', trainersRouter)
+
 //handle dashsboard information for client
 app.use('/api/clients', clientsRouter)
 
