@@ -10,11 +10,20 @@ const authRouter = require('./routes/auth');
 // parse request body later
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser());
+
+
+//handle trainers to assing plans/create content for client
+app.use('/api/trainers', trainersRouter)
+
+//handle dashsboard information for client
+app.use('/api/clients', clientsRouter)
 
 // handle routes for authentication
-app.use('/api/auth', authRouter);
+app.use('/api/auth', authRouter)
 // serve static index.html file on root endpoint
+
 app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
