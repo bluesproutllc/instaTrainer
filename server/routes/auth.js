@@ -11,10 +11,12 @@ router.post('/signup', authControllers.createUsers, (req, res) => {
     }
     return res.status(200).send('Created user')
 })
-router.post('/signin', authControllers.verifyUsers, (req, res) => {
+router.post('/signin', authControllers.verifyUsers, authControllers.setSSIDCookie, authControllers.startCookieSession, (req, res) => {
   if (res.locals.status === 'not found') {
     return res.status(409).send('user not found');
   }
+  const {ssid} = res.locals;
+  console.log(ssid)
   return res.status(200).send('Logged in');
 });
 

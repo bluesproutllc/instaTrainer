@@ -13,10 +13,16 @@ const clientsRouter = require('./routes/clients')
 app.use(express.json())
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser());
+
+
+//handle dashsboard information for client
+app.use('/api/clients', clientsRouter)
 
 // handle routes for authentication
 app.use('/api/auth', authRouter)
 // serve static index.html file on root endpoint
+
 app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });

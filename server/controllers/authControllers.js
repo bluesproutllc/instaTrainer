@@ -6,13 +6,34 @@ const authControllers = {};
 
 // setSSIDCookie - store the user id from database in cookie
 authControllers.setSSIDCookie = (req, res, next) => {
-    // set cookie with key 'ssid' to value user's id 
-    res.cookie('ssid', res.locals.id, {
+    // let randomNumber = Math.random().toString();
+    // randomNumber = randomNumber.substring(2, randomNumber.length);
+    // set cookie with key 'ssid' to value user's id and client type 
+    const ssid = `${res.locals.userType}${res.locals.userId}`
+    res.cookie('ssid', ssid, {
         httpOnly: true,
         sameSite: 'None',
         secure: true,
     })
+    res.locals.ssid = ssid;
     return next()
+}
+// startCookieSession - start a session where user login is persistent
+authControllers.startCookieSession = (req, res, next) => {
+    const {ssid }= res.locals;
+    const param = [ssid];
+    db.query(`SELECT * FROM cookies WHERE (cookie_info = $1);`, param)
+    .then(data => {
+        // if there is no cookie saved in database, create one using ssid
+        if (data.rows.length === 0) {
+            db.query(`INSERT INTO cookies (cookie_info) VALUES ($1);`, param)
+            .then(cookie => next())
+            .catch(err => next({err}))
+        } else {
+            return next()
+        }
+    })
+    .catch(err => next({err}))
 }
 // createUser for sign-up 
 authControllers.createUsers = (req, res, next) => {
@@ -53,6 +74,7 @@ authControllers.createUsers = (req, res, next) => {
         weight,
         username,
         password,
+        gender
       } = req.body;
       // standardized all username to lowercase
       const param = [username.toLowerCase()];
@@ -76,10 +98,11 @@ authControllers.createUsers = (req, res, next) => {
                 age,
                 height,
                 weight,
+                gender,
                 trainer_id,
               ];
               db.query(
-                `INSERT INTO clients (username, password, first_name, last_name, age, weight, height, trainer_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
+                `INSERT INTO clients (username, password, first_name, last_name, age, weight, height, gender, trainer_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`,
                 values
               )
                 .then((data) => next())
@@ -109,6 +132,8 @@ authControllers.verifyUsers = (req, res, next) => {
             if (result === true) {
               // if provided password matches saved password
               res.locals.statue = true;
+              res.locals.userId = data.rows[0][`${userType}_id`];
+              res.locals.userType = userType;
               return next();
             } else {
               // if provided password does not match saved password
