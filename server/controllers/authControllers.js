@@ -96,8 +96,8 @@ authControllers.verifyUsers = (req, res, next) => {
     const {username, password, userType} = req.body;
     // standardize username to be lowercase
     const param = [username.toLowerCase()];
-    // query db to find that existing username
-    db.query(`SELECT * FROM ${userType} WHERE (username = $1);`, param)
+    // query db to find that existing username (add "s" after userType because table names are in plural)
+    db.query(`SELECT * FROM ${userType}s WHERE (username = $1);`, param)
     .then((data) => {
         if (data.rows.length === 0) {
           // if no such user, stop here

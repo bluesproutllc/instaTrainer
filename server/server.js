@@ -14,14 +14,7 @@ app.use(express.json())
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }))
 
-
-
-
 // handle routes for authentication
-app.get('/api/greeting', (req, res) => {
-  console.log('hi')
-  return res.status(200).send('success');
-})
 app.use('/api/auth', authRouter)
 // serve static index.html file on root endpoint
 app.get('/', (req, res) => {
