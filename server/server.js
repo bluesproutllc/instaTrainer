@@ -5,6 +5,9 @@ const cookieParser = require('cookie-parser');
 const app = express()
 const PORT = 3000
 
+const authRouter = require('./routes/auth');
+const trainersRouter = require('./routes/trainers');
+const clientsRouter = require('./routes/clients')
 
 // parse request body later
 app.use(express.json())
@@ -16,6 +19,8 @@ app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
+// handle routes for authentication
+app.use('/api/auth', authRouter)
 // middleware to catch not found enpoints
 app.use((req, res) => res.status(404).send('Not found')); //catch-all route handler--for unknown routes
 

@@ -35,7 +35,10 @@ authControllers.createUsers = (req, res, next) => {
                     const hashedPassword = hash;
                     const values = [username.toLowerCase(), hashedPassword, trainer_name];
                     db.query(`INSERT INTO trainers (username, password, trainer_name) VALUES ($1, $2, $3);`, values)
-                    .then((data) => next())
+                    .then((data) => {
+                        console.log('data', data)
+                        return next();
+                    })
                     .catch((err) => next({err}))
                 })
             }

@@ -19,10 +19,12 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
     "concurrently": "^5.3.0",
     "config": "^3.3.3",
     "express": "^4.17.1",
     "mongoose": "^5.11.8",
+    "pg": "^8.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
