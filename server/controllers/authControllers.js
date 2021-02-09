@@ -21,12 +21,16 @@ authControllers.createUsers = (req, res, next) => {
     // if user is a trainer, extract fullname, username, password
     if (userType === 'trainer') {
         const {trainer_name, username, password} = req.body;
+        // standardized all username to lowercase
         const param = [username.toLowerCase()];
+        // check if username has existed in the table
         db.query(`SELECT * FROM trainers WHERE (username = $1);`, param).then(data => {
+            // check if data comes back with result, means username taken
             if (data.rows.length) {
-                res.locals.status = 'trainer exists';
+                res.locals.status = 'username taken';
                 return next();
             } else {
+                // if not, has password and insert information into the db
                 bcrypt.hash(password, saltRounds, (err, hash) => {
                     const hashedPassword = hash;
                     const values = [username.toLowerCase(), hashedPassword, trainer_name];
@@ -37,15 +41,28 @@ authControllers.createUsers = (req, res, next) => {
             }
         })
     } else if (userType === 'client') {
-      const { first_name, last_name, age, height, weight, username, password } = req.body;
+        // extract client specific info
+      const {
+        first_name,
+        last_name,
+        age,
+        height,
+        weight,
+        username,
+        password,
+      } = req.body;
+      // standardized all username to lowercase
       const param = [username.toLowerCase()];
+      // randomize trainer id to add to the db as foreign key
       const trainer_id = Math.ceil(Math.random() * 4);
       db.query(`SELECT * FROM clients WHERE (username = $1);`, param).then(
+          // check if client username has been taken
         (data) => {
           if (data.rows.length) {
-            res.locals.status = 'client exists';
+            res.locals.status = 'username taken';
             return next();
           } else {
+            // if not, hash password and insert info into the db
             bcrypt.hash(password, saltRounds, (err, hash) => {
               const hashedPassword = hash;
               const values = [
@@ -56,7 +73,7 @@ authControllers.createUsers = (req, res, next) => {
                 age,
                 height,
                 weight,
-                trainer_id
+                trainer_id,
               ];
               db.query(
                 `INSERT INTO clients (username, password, first_name, last_name, age, weight, height, trainer_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
@@ -69,6 +86,36 @@ authControllers.createUsers = (req, res, next) => {
         }
       );
     }
-
 }
+
+// verifyUser for valid login credentials
+authControllers.verifyUsers = (req, res, next) => {
+    const {username, password, userType} = req.body;
+    // standardize username to be lowercase
+    const param = [username.toLowerCase()];
+    // query db to find that existing username
+    db.query(`SELECT * FROM ${userType} WHERE (username = $1);`, param)
+    .then((data) => {
+        if (data.rows.length === 0) {
+          // if no such user, stop here
+          res.locals.status = 'not found';
+          return next();
+        } else {
+          // if there is such a user, compare password with encrypted password
+          bcrypt.compare(password, data.rows[0].password, (err, result) => {
+            if (result === true) {
+              // if provided password matches saved password
+              res.locals.statue = true;
+              return next();
+            } else {
+              // if provided password does not match saved password
+              res.locals.status = false;
+              return next();
+            }
+          });
+        }
+    })
+    .catch((err) => next({err}))
+}
+
 module.exports = authControllers;
