@@ -8,6 +8,7 @@ release-builds
 coverage
 __tests__/**/__snapshots__
 .env
+config.js
 
 # Compiled source #
 ###################
