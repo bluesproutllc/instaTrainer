@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express()
 const PORT = 3000
 
@@ -10,6 +11,7 @@ app.use(express.json())
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }))
 
+// serve static index.html file on root endpoint
 app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
