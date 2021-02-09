@@ -14,13 +14,19 @@ app.use(express.json())
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }))
 
+
+
+
+// handle routes for authentication
+app.get('/api/greeting', (req, res) => {
+  console.log('hi')
+  return res.status(200).send('success');
+})
+app.use('/api/auth', authRouter)
 // serve static index.html file on root endpoint
 app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
-
-// handle routes for authentication
-app.use('/api/auth', authRouter)
 // middleware to catch not found enpoints
 app.use((req, res) => res.status(404).send('Not found')); //catch-all route handler--for unknown routes
 
