@@ -36,7 +36,39 @@ authControllers.createUsers = (req, res, next) => {
                 })
             }
         })
-    } 
+    } else if (userType === 'client') {
+      const { first_name, last_name, age, height, weight, username, password } = req.body;
+      const param = [username.toLowerCase()];
+      const trainer_id = Math.ceil(Math.random() * 4);
+      db.query(`SELECT * FROM clients WHERE (username = $1);`, param).then(
+        (data) => {
+          if (data.rows.length) {
+            res.locals.status = 'client exists';
+            return next();
+          } else {
+            bcrypt.hash(password, saltRounds, (err, hash) => {
+              const hashedPassword = hash;
+              const values = [
+                username.toLowerCase(),
+                hashedPassword,
+                first_name,
+                last_name,
+                age,
+                height,
+                weight,
+                trainer_id
+              ];
+              db.query(
+                `INSERT INTO clients (username, password, first_name, last_name, age, weight, height, trainer_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
+                values
+              )
+                .then((data) => next())
+                .catch((err) => next({ err }));
+            });
+          }
+        }
+      );
+    }
 
 }
 module.exports = authControllers;
