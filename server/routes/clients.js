@@ -3,7 +3,7 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const express = require('express');
 const router = express.Router();
-const clientsControllers = require('../controller/clientsControllers');
+const clientsControllers = require('../controllers/clientsControllers');
 router.get('/sessions', clientsControllers.getSessions,(req, res) =>{
     if(res.locals.sessions) return res.status(200).json(res.locals.sessions)
 })

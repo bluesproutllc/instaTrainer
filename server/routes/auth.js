@@ -16,8 +16,7 @@ router.post('/signin', authControllers.verifyUsers, authControllers.setSSIDCooki
     return res.status(409).send('user not found');
   }
   const {ssid} = res.locals;
-  console.log(ssid)
-  return res.status(200).send('Logged in');
+  return res.status(200).json({ssid});
 });
 
 module.exports = router;
