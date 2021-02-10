@@ -5,8 +5,8 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3000;
 const authRouter = require('./routes/auth');
-// const trainersRouter = require('./routes/trainers');
-// const clientsRouter = require('./routes/clients');
+const trainersRouter = require('./routes/trainers');
+const clientsRouter = require('./routes/clients');
 // parse request body later
 app.use(express.json());
 app.use(bodyParser.json());
@@ -44,3 +44,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
 });
+
