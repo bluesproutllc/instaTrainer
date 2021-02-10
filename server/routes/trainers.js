@@ -11,8 +11,10 @@ router.get('/dashboard', trainersControllers.getClients, (req, res) => res.statu
 router.get('/exercises', trainersControllers.getExercises, (req, res) =>
   res.status(200).json(res.locals.exercises)
 );
+// edit each exercise plan
+router.delete('/exercise', trainersControllers.deletePlan, (req, res) => res.status(200).send('deleting'))
 // get each client's profile
-router.get('/:clientId', trainersControllers.getProfile, (req, res) =>
+router.get('/:client_id', trainersControllers.getProfile, (req, res) =>
   res.status(200).json(res.locals.profile)
 );
 

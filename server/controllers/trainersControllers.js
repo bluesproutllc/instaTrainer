@@ -5,7 +5,6 @@ const trainersControllers = {};
 trainersControllers.getClients = (req, res, next) => {
     const {ssid} = req.cookies;
     const trainerId = ssid.slice(7);
-    console.log(trainerId)
     const value = [trainerId];
     db.query(`SELECT * FROM clients WHERE (trainer_id = $1);`, value)
     .then(data => {
@@ -15,11 +14,17 @@ trainersControllers.getClients = (req, res, next) => {
     .catch(err => next({err}))
 }
 trainersControllers.getProfile = (req, res, next) => {
-    const {clientId} = req.params;
-    const param = [clientId]
-    db.query(`SELECT * FROM clients WHERE (client_id = $1);`, param) 
+    const {client_id} = req.params;
+    const param = [client_id]
+    db.query(`SELECT
+        wp.plan_duration, wp.frequency, wp.exercise_id, wp.notes,
+        c.first_name, c.last_name, c.age, c.weight, c.height, c.gender, c.client_id 
+        FROM clients c
+        JOIN workout_plan wp
+        ON c.client_id=wp.client_id
+        WHERE (c.client_id = $1);`, param) 
     .then(data => {
-        res.locals.profile = data.rows[0]
+        res.locals.profile = data.rows;
         return next()
     })
     .catch(err => next({err}))
@@ -31,5 +36,10 @@ trainersControllers.getExercises = (req, res, next) => {
         return next();
       })
       .catch((err) => next({ err }));
+}
+trainersControllers.deletePlan = (req, res, next) => {
+    const {client_id, exercise_id} = req.body;
+    console.log(client_id, exercise_id)
+    return next()
 }
 module.exports = trainersControllers;
