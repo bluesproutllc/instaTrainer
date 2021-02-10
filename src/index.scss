@@ -2,10 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: #272736;
 }
-
+.image-container {
+  background-color: #fff;
+}
 .image-class {
   height: 80px;
+  border-radius: 100px;
 }
 .client-home-page-container {
   display: flex;
@@ -15,34 +19,46 @@
 }
 
 .user-profile-container {
-  padding-top: 5rem;
+  padding-top: 2rem;
   border-style: solid;
   border-color: coral;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #fff;
 }
 
+.image-side-container {
+  background-color: #4c82b0;
+}
 .exercise-image {
   height: 150px;
   border-radius: 50px;
 }
 .client-card-container {
   display: flex;
-  padding-top: 2rem;
+  padding-top: 1.5rem;
   background-color: #4c82b0;
+  border-style: solid;
+  border-color: #4c82b0;
+  border-radius: 5px;
 }
+
 .exercise-info-container {
-  padding-left: 2rem;
+  padding-left: 5px;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
+  background-color: #272736;
+  height: 150px;
+  border-radius: 5px;
 }
 .exercise-info-container > * {
   flex: 0.2;
 }
 .client-details-container {
-  background-color: aquamarine;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,4 +74,31 @@
 
 .cards-feed-container > * {
   flex: 1.2;
+}
+.exercise-detail {
+  color: #fff;
+  font-family: Sans-serif;
+}
+@media (max-width: 500px) {
+  .client-card-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .exercise-detail {
+    margin: 5px;
+    color: #fff;
+    font-family: Sans-serif;
+  }
+}
+
+.div-container {
+  padding-top: 10px;
+}
+.right-side-excercise-card {
+  padding-left: 15px;
+  background-color: #4c82b0;
+}
+.client-detail {
+  background-color: #fff;
 }

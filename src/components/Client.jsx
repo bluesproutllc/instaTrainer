@@ -3,9 +3,9 @@ import ExercisesCard from './ExercisesCard.jsx';
 function Client() {
   const [clientInfo, setclientInfo] = useState();
   const exerciseCards = [];
-    for (let i = 0; i < 5; i += 1) {
-      exerciseCards.push(<ExercisesCard />);
-    }
+  for (let i = 0; i < 5; i += 1) {
+    exerciseCards.push(<ExercisesCard />);
+  }
   return (
     <div className='client-home-page-container'>
       <div className='user-profile-container'>
@@ -17,16 +17,16 @@ function Client() {
           />
         </div>
         <div>
-          <h3>Matt Jiang</h3>
+          <h3 className='client-detail'>Matt Jiang</h3>
         </div>
         <div className='client-details-container'>
-          <p>age: 25</p>
-          <p>gender:male</p>
-          <p>height:10ft</p>
-          <p>weight: 180lbs</p>
+          <p className='client-detail'>age: 25</p>
+          <p className='client-detail'>gender:male</p>
+          <p className='client-detail'>height:10ft</p>
+          <p className='client-detail'>weight: 180lbs</p>
         </div>
       </div>
-      <div className="cards-feed-container">{exerciseCards}</div>
+      <div className='cards-feed-container'>{exerciseCards}</div>
     </div>
   );
 }
