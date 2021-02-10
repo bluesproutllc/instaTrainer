@@ -3,3 +3,59 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.image-class {
+  height: 80px;
+}
+.client-home-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.user-profile-container {
+  padding-top: 5rem;
+  border-style: solid;
+  border-color: coral;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.exercise-image {
+  height: 150px;
+  border-radius: 50px;
+}
+.client-card-container {
+  display: flex;
+  padding-top: 2rem;
+  background-color: #4c82b0;
+}
+.exercise-info-container {
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.exercise-info-container > * {
+  flex: 0.2;
+}
+.client-details-container {
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+}
+.cards-feed-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cards-feed-container > * {
+  flex: 1.2;
+}
