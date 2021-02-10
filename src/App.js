@@ -11,6 +11,7 @@ import Client from './components/Client.jsx';
 import Trainer from './components/Trainer.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
+import Dashboard from './components/Dashboard.jsx';
 
 function App() {
   return (
@@ -24,11 +25,14 @@ function App() {
             <li>
               <Link to="/signup">Signup</Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/client/dashboard">Client</Link>
             </li>
             <li>
               <Link to="/trainer/dashboard">Trainer</Link>
+            </li> */}
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
           </ul>
         </nav>
@@ -42,15 +46,8 @@ function App() {
           <Route path="/signup">
             <Signup />
           </Route>
-          {/* private trainer route */}
-          <Route path="/trainer/dashboard">
-            <Trainer />
-          </Route>
-          {/* private client route */}
-          <PrivateRoute component={Client} path="/client/dashboard"/>
-          {/* <Route path="/client/dashboard">
-            <Client />
-          </Route> */}
+          {/* private dashboard route */}
+          <PrivateRoute component={Dashboard} path="/dashboard"/>
         </Switch>
       </div>
     </Router>
