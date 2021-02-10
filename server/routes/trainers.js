@@ -11,8 +11,18 @@ router.get('/dashboard', trainersControllers.getClients, (req, res) => res.statu
 router.get('/exercises', trainersControllers.getExercises, (req, res) =>
   res.status(200).json(res.locals.exercises)
 );
+// create an exercise plan
+router.post('/exercise', trainersControllers.createPlan, (req, res) => {
+  if (res.locals.status === 'existing plan') {
+    return res.status(409).send('exisiting plan');
+  } else {
+    return res.status(200).json(res.locals.plan);
+  }
+})
 // edit each exercise plan
-router.delete('/exercise', trainersControllers.deletePlan, (req, res) => res.status(200).send('deleting'))
+router.put('/exercise', trainersControllers.editPlan, (req, res) => res.status(200).json(res.locals.newPlan))
+// delete each exercise plan
+router.delete('/exercise', trainersControllers.deletePlan, (req, res) => res.status(200).send('deleted'))
 // get each client's profile
 router.get('/:client_id', trainersControllers.getProfile, (req, res) =>
   res.status(200).json(res.locals.profile)
