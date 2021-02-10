@@ -1,19 +1,25 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index_bundle.js'
+    filename: 'index_bundle.js',
   },
   mode: process.env.NODE_ENV,
   devServer: {
     publicPath: '/',
+    historyApiFallback: true,
+    contentBase: path.resolve(__dirname, 'dist'),
+    host: 'localhost',
+    port: 8080,
     proxy: {
-      "/api/**": "http://localhost:3000",
-    }
+      '/api/**': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+    },
   },
   module: {
     rules: [
@@ -23,10 +29,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
-
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.s?css/,
@@ -34,15 +39,14 @@ module.exports = {
         // use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'sass-loader']
         // },
 
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-    ]
+    ],
   },
   mode: 'development',
   plugins: [
-
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    })
-  ]
-}
+      template: 'src/index.html',
+    }),
+  ],
+};
