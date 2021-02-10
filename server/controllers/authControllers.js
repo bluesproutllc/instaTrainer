@@ -11,6 +11,7 @@ authControllers.setSSIDCookie = (req, res, next) => {
   // set cookie with key 'ssid' to value user's id and client type
   const ssid = `${res.locals.userType}${res.locals.userId}`;
   res.cookie('ssid', ssid);
+  res.cookie('userType', res.locals.userType);
   console.log('ssid>>>', ssid);
   res.locals.ssid = ssid;
   return next();
