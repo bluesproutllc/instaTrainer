@@ -1,25 +1,29 @@
 import React from 'react';
-
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+import PrivateRoute from './routes/PrivateRoute.jsx';
 
 import Client from './components/Client.jsx';
 import Trainer from './components/Trainer.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
+
 function App() {
   return (
     <Router>
       <div>
         <nav>
           <ul>
-            {/* <li>  
+            <li>  
               <Link to="/">Home</Link>
-            </li> */}
+            </li>
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
             <li>
               <Link to="/client/dashboard">Client</Link>
             </li>
@@ -30,7 +34,6 @@ function App() {
         </nav>
 
         <Switch>
-          {/* public home route redirects you to login or client / trainer */}
           {/* restricted login route */}
           <Route exact path="/">
             <Login />
@@ -44,9 +47,10 @@ function App() {
             <Trainer />
           </Route>
           {/* private client route */}
-          <Route path="/client/dashboard">
+          <PrivateRoute component={Client} path="/client/dashboard"/>
+          {/* <Route path="/client/dashboard">
             <Client />
-          </Route>
+          </Route> */}
         </Switch>
       </div>
     </Router>
