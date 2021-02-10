@@ -9,6 +9,6 @@ router.post('/assignWorkout/:trainer_id', trainersControllers.assignWorkout, (re
     res.status(200).json(res.locals.assigned)
 })
 
-router.get('/trainerid', trainersControllers.getClients, (req, res) => res.status(200).send('here is the cookie'))
+router.get('/trainerid', trainersControllers.getClients, (req, res) => res.status(200).json(res.locals.clients))
 
 module.exports = router;
