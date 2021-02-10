@@ -5,10 +5,9 @@ const express = require('express');
 const router = express.Router();
 const trainersControllers = require('../controllers/trainersControllers');
 
-router.post('/assignWorkout/:trainer_id', trainersControllers.assignWorkout, (req, res) =>{
-    res.status(200).json(res.locals.assigned)
-})
 
-router.get('/:trainerId', trainersControllers.getClients, (req, res) => res.status(200).json(res.locals.clients))
-
+router.get('/dashboard', trainersControllers.getClients, (req, res) => res.status(200).json(res.locals.clients))
+router.get('/:clientId', trainersControllers.getProfile, (req, res) =>
+  res.status(200).json(res.locals.profile)
+);
 module.exports = router;
