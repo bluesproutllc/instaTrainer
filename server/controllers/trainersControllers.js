@@ -24,4 +24,12 @@ trainersControllers.getProfile = (req, res, next) => {
     })
     .catch(err => next({err}))
 }
+trainersControllers.getExercises = (req, res, next) => {
+    db.query(`SELECT * FROM exercises`)
+      .then((data) => {
+        res.locals.exercises = data.rows;
+        return next();
+      })
+      .catch((err) => next({ err }));
+}
 module.exports = trainersControllers;
