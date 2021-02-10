@@ -39,7 +39,9 @@ trainersControllers.getExercises = (req, res, next) => {
 }
 trainersControllers.deletePlan = (req, res, next) => {
     const {client_id, exercise_id} = req.body;
-    console.log(client_id, exercise_id)
-    return next()
+    const param = [client_id, exercise_id];
+    db.query(`DELETE FROM workout_plan WHERE (client_id=$1) and (exercise_id=$2);`, param)
+    .then(data => next())
+    .catch(err => next({err}))
 }
 module.exports = trainersControllers;
