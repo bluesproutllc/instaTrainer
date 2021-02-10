@@ -4,7 +4,8 @@ const trainersControllers = {};
 
 trainersControllers.getClients = (req, res, next) => {
     const {ssid} = req.cookies;
-    const trainerId = ssid[ssid.length-1];
+    const trainerId = ssid.slice(7);
+    console.log(trainerId)
     const value = [trainerId];
     db.query(`SELECT * FROM clients WHERE (trainer_id = $1);`, value)
     .then(data => {
