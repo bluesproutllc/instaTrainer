@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #272736;
 }
 .image-container {
   background-color: #fff;
@@ -27,11 +26,9 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
+
 }
 
-.image-side-container {
-  background-color: #4c82b0;
-}
 .exercise-image {
   height: 150px;
   border-radius: 50px;
@@ -39,10 +36,8 @@
 .client-card-container {
   display: flex;
   padding-top: 1.5rem;
-  background-color: #4c82b0;
-  border-style: solid;
-  border-color: #4c82b0;
-  border-radius: 5px;
+  border-radius: 1px;
+  box-shadow: 2px 5px 5px 5px rgb(224, 224, 224);
 }
 
 .exercise-info-container {
@@ -50,9 +45,7 @@
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
-  background-color: #272736;
   height: 150px;
-  border-radius: 5px;
 }
 .exercise-info-container > * {
   flex: 0.2;
@@ -76,8 +69,8 @@
   flex: 1.2;
 }
 .exercise-detail {
-  color: #fff;
   font-family: Sans-serif;
+  color: #fff;
 }
 @media (max-width: 500px) {
   .client-card-container {
@@ -93,12 +86,52 @@
 }
 
 .div-container {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 .right-side-excercise-card {
   padding-left: 15px;
-  background-color: #4c82b0;
 }
 .client-detail {
   background-color: #fff;
+}
+
+.duration-frequency-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.duration-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 110px;
+  flex-direction: column;
+  background: linear-gradient(#5fddff, #34b4e4);
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px rgb(192, 192, 192);
+}
+#duration-min-id {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.frequency-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 110px;
+  flex-direction: column;
+  background-color: rgb(168, 244, 96);
+  border-radius: 5px;
+  background: linear-gradient(#8c8cff, #5757c0);
+  box-shadow: 2px 2px 2px 2px rgb(192, 192, 192);
+}
+#frequency-time-id {
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+#notes-id {
+  color: black;
 }
