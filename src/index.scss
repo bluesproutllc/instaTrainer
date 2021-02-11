@@ -26,7 +26,6 @@
   align-items: center;
   justify-content: center;
   background-color: #fff;
-
 }
 
 .exercise-image {
@@ -134,4 +133,30 @@
 }
 #notes-id {
   color: black;
+}
+.buttons-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-card-container {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
+}
+//modal form
+
+.modal-form-container {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown-container {
+  display: flex;
+}
+.dropdown-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
