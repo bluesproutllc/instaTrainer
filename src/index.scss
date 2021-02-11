@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family:Verdana, Geneva, Tahoma, sans-serif
 }
 .image-container {
   background-color: #fff;
@@ -11,6 +12,9 @@
   border-radius: 100px;
 }
 .client-home-page-container {
+  background-image:
+  linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(180, 180, 180, 0.5)),
+  url('https://source.unsplash.com/1700x2100/?sports');
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,9 +22,10 @@
 }
 
 .user-profile-container {
-  padding-top: 2rem;
+
+  padding-top: 1rem;
   border-style: solid;
-  border-color: coral;
+  border-color: rgb(90, 80, 77);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,13 +35,17 @@
 
 .exercise-image {
   height: 150px;
-  border-radius: 50px;
+  border-radius: 25px;
+  padding-left: 5px;
+  padding-bottom: 20px;
 }
 .client-card-container {
   display: flex;
   padding-top: 1.5rem;
   border-radius: 1px;
+  background-color:  rgb(43, 43, 43);
   box-shadow: 2px 5px 5px 5px rgb(224, 224, 224);
+  border-radius: 15px;
 }
 
 .exercise-info-container {
@@ -56,6 +65,7 @@
   justify-content: center;
   align-items: center;
   width: 300px;
+  padding-bottom: 1rem;
 }
 .cards-feed-container {
   display: flex;
@@ -69,13 +79,14 @@
 }
 .exercise-detail {
   font-family: Sans-serif;
-  color: #fff;
+  color: rgb(255, 255, 255);
 }
 @media (max-width: 500px) {
   .client-card-container {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100em
   }
   .exercise-detail {
     margin: 5px;
@@ -98,6 +109,7 @@
   display: flex;
   justify-content: space-around;
   margin-bottom: 10px;
+  padding-right: 15px;
 }
 
 .duration-box {
@@ -107,7 +119,7 @@
   height: 80px;
   width: 110px;
   flex-direction: column;
-  background: linear-gradient(#5fddff, #34b4e4);
+  background: linear-gradient(#5fddff, #269dc9);
   border-radius: 5px;
   box-shadow: 2px 2px 2px 2px rgb(192, 192, 192);
 }
@@ -132,7 +144,8 @@
   margin-bottom: 5px;
 }
 #notes-id {
-  color: black;
+  color: rgb(255, 255, 255);
+  padding-right: 5px;
 }
 .buttons-image-container {
   display: flex;
