@@ -48,6 +48,7 @@ function ClientContainer(props) {
   const [existingExercises, setExistingExercises] = useState();
   const [exercisesDropdown, setExercisesDropdown] = useState();
   const [appendNewExcercise, setappendNewExercise] = useState();
+  const [addingWorkout, setAddingWorkout] = useState(true);
   const [clienInfo, setClientInfo] = useState({
     client_name: 'Dennis',
     age: '25',
@@ -81,23 +82,11 @@ function ClientContainer(props) {
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
-  getAsssignedWorkouts();
+  //getAsssignedWorkouts();
   const handleClose = () => {
     setOpen(false);
   };
-  const exerciseCards = [];
-  for (let i = 0; i < 5; i += 1) {
-    exerciseCards.push(
-      <ExercisesCard
-        authorizedView={authorizedView}
-        existingExercises={existingExercises}
-        exercisesDropdown={exercisesDropdown}
-        setExercisesDropdown={setExercisesDropdown}
-        appendNewExcercise={appendNewExcercise}
-        append={append}
-      />
-    );
-  }
+
   const newCard = [];
   const append = () => {
     newCard.unshift(
@@ -113,11 +102,27 @@ function ClientContainer(props) {
     console.log('newcard in append');
     setappendNewExercise(newCard);
   };
+  const exerciseCards = [];
+  for (let i = 0; i < 5; i += 1) {
+    exerciseCards.push(
+      <ExercisesCard
+        authorizedView={authorizedView}
+        setExistingExercises={setExistingExercises}
+        existingExercises={existingExercises}
+        exercisesDropdown={exercisesDropdown}
+        setExercisesDropdown={setExercisesDropdown}
+        appendNewExcercise={appendNewExcercise}
+        append={append}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+      />
+    );
+  }
 
   return (
     <div className='client-home-page-container'>
       <div className='user-profile-container'>
-        <h2>Edit {`${clienInfo.client_name}`}'s Workout Plan</h2>
+        {authorizedView?<h2>Edit {`${clienInfo.client_name}`}'s Workout Plan</h2>: null}
         <div className='image-container'>
           <img
             className='image-class'
@@ -136,7 +141,7 @@ function ClientContainer(props) {
         </div>
       </div>
       <div className='edit-card-container'>
-        <button className='edit-button' onClick={handleOpen}>
+        <button id='add-button-id' className='edit-button' onClick={handleOpen}>
           Add WorkOut
         </button>
         <Modal
@@ -162,6 +167,8 @@ function ClientContainer(props) {
                   setExercisesDropdown={setExercisesDropdown}
                   appendNewExcercise={appendNewExcercise}
                   append={append}
+                  handleClose={handleClose}
+                  addingWorkout={addingWorkout}
                 />
               </div>
             ) : null}

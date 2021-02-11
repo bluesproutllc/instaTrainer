@@ -46,17 +46,23 @@ function ExercisesCard({
   exercisesDropdown,
   setExercisesDropdown,
   appendNewExcercise,
+  setExistingExercises,
   append,
 }) {
   //console.log(props)
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [editExistingInfo, seteditExistingInfo] = useState();
   const handleOpen = () => {
-    setOpen(true);
+    setOpenEdit(true);
+    fetch('/api/trainers/exercises')
+      .then((res) => res.json())
+      .then((response) => seteditExistingInfo(response))
+      .catch((err) => console.log(err));
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenEdit(false);
   };
   return (
     <div className='div-container'>
@@ -105,7 +111,7 @@ function ExercisesCard({
                 aria-labelledby='spring-modal-title'
                 aria-describedby='spring-modal-description'
                 className={classes.modal}
-                open={open}
+                open={openEdit}
                 onClose={handleClose}
                 closeAfterTransition
                 BackdropComponent={Backdrop}
@@ -113,19 +119,22 @@ function ExercisesCard({
                   timeout: 500,
                 }}
               >
-                <Fade in={open}>
-                  <div className={classes.paper}>
-                    <h2 id='spring-modal-title'>Add WorkOut</h2>
-                    <ModalForm
-                      key='modal-form-edit'
-                      authorizedView={authorizedView}
-                      existingExercises={existingExercises}
-                      exercisesDropdown={exercisesDropdown}
-                      setExercisesDropdown={setExercisesDropdown}
-                      appendNewExcercise={appendNewExcercise}
-                      append={append}
-                    />
-                  </div>
+                <Fade in={openEdit}>
+                  {editExistingInfo ? (
+                    <div className={classes.paper}>
+                      <h2 id='spring-modal-title'>Add WorkOut</h2>
+                      <ModalForm
+                        key='modal-form-edit'
+                        authorizedView={authorizedView}
+                        existingExercises={editExistingInfo}
+                        exercisesDropdown={exercisesDropdown}
+                        setExercisesDropdown={setExercisesDropdown}
+                        appendNewExcercise={appendNewExcercise}
+                        append={append}
+                        handleClose={handleClose}
+                      />
+                    </div>
+                  ) : null}
                 </Fade>
               </Modal>
             </div>

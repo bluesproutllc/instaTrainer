@@ -89,9 +89,6 @@ function ModalForm(props) {
       );
     });
   };
-  //   const changeTextValue = useCallback((e) => {
-  //     console.log('Changed value to: ', e.target.value);
-  //   }, []);
   function handleSubmit(event) {
     event.preventDefault();
     console.log('form infor>>>', excerciseType);
@@ -99,28 +96,58 @@ function ModalForm(props) {
     console.log('form infor>>>', duration);
     console.log('form infor>>>', frequency);
     console.log('form infor>>>', notes);
-
-    fetch('/api/trainers/exercise', {
-      method: 'POST',
-      body: JSON.stringify({
-        plan_duration: duration,
-        frequency,
-        client_id: 5,
-        exercise_id: exercise,
-        notes,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.text())
-      .then((response) => props.append())
-      .catch((err) => console.log(err));
+    if (props.addingWorkout) {
+      console.log('addingwokrout is true');
+      fetch('/api/trainers/exercise', {
+        method: 'POST',
+        body: JSON.stringify({
+          plan_duration: duration,
+          frequency,
+          client_id: 12,
+          exercise_id: exercise,
+          notes,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.text())
+        .then((response) => props.append())
+        .catch((err) => console.log(err));
+    } else {
+      fetch('/api/trainers/exercise', {
+        method: 'PUT',
+        body: JSON.stringify({
+          plan_duration: duration,
+          frequency,
+          client_id: 5,
+          exercise_id: exercise,
+          notes,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.text())
+        .then((response) => props.append())
+        .catch((err) => console.log(err));
+    }
   }
+  const checkForm = () => {
+    if (addingWorkout) {
+    }
+
+    props.handleClose();
+  };
 
   return (
     <div className='modal-form-container'>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form
+        onSubmit={(e) => {
+          handleSubmit(e);
+          checkForm();
+        }}
+      >
         <div className='dropdown-container'>
           <div className='dropdown-detail-container'>
             <h4>Exercise Type</h4>
@@ -214,9 +241,11 @@ function ModalForm(props) {
             variant='contained'
             color='primary'
             disableElevation
+            onClick={() => props.handleClose()}
           >
             Save
           </Button>
+          <Button onClick={() => props.handleClose()}> Cancel</Button>
         </div>
       </form>
     </div>
