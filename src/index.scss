@@ -1,3 +1,5 @@
+$blue: blue;
+
 * {
   margin: 0;
   padding: 0;
@@ -162,8 +164,11 @@
   justify-content: center;
   align-items: center;
 }
-#nav-bar {
-  border: 5px solid black;
+#header {
+  background-color: $blue;
+  h1 {
+    color: white;
+  }
 }
 .edit-button-id {
   width: 80px;
