@@ -47,7 +47,14 @@ function ExercisesCard({
   setExercisesDropdown,
   appendNewExcercise,
   setExistingExercises,
+  removeCard,
   append,
+  cardNum,
+  plan_duration,
+  frequency,
+  exercise_id,
+  notes,
+  client_id,
 }) {
   //console.log(props)
   const classes = useStyles();
@@ -65,7 +72,7 @@ function ExercisesCard({
     setOpenEdit(false);
   };
   return (
-    <div className='div-container'>
+    <div id={`${cardNum}`} className='div-container'>
       <div className='client-card-container'>
         <div className='buttons-image-container'>
           <div className='image-side-container'>
@@ -81,31 +88,35 @@ function ExercisesCard({
             <div className='duration-frequency-container'>
               <div className='duration-box'>
                 <p id='duration-min-id' className='exercise-detail'>
-                  15min
+                  {`${plan_duration}`}min
                 </p>
                 <p className='exercise-detail'>Duration</p>
               </div>
               <div className='frequency-box'>
                 <p id='frequency-time-id' className='exercise-detail'>
-                  2 times/day
+                  {`${frequency}`}/day
                 </p>{' '}
                 <p className='exercise-detail'>Frequency</p>
               </div>
             </div>
             <p id='notes-id' className='exercise-detail'>
-              Notes: Its grind time. No days off bro!
+              Notes:{ `${notes}`}
             </p>
           </div>
           {authorizedView ? (
             <div className='edit-card-container'>
-              <button
-                id='edit-button-id'
-                className='edit-button'
-                onClick={handleOpen}
-              >
+              <button className='edit-button-id' onClick={handleOpen}>
                 Edit
               </button>
-              <button id='remove-button-id'>Remove</button>
+              <button
+                exercise_id={exercise_id}
+                client_id={client_id}
+                id={`id-button-${cardNum}`}
+                onClick={(e) => removeCard(e)}
+                className='remove-button-id'
+              >
+                Remove
+              </button>
               <Modal
                 key='modal-form-edit'
                 aria-labelledby='spring-modal-title'

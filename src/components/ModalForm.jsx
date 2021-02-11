@@ -91,11 +91,6 @@ function ModalForm(props) {
   };
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('form infor>>>', excerciseType);
-    console.log('form infor>>>', exercise);
-    console.log('form infor>>>', duration);
-    console.log('form infor>>>', frequency);
-    console.log('form infor>>>', notes);
     if (props.addingWorkout) {
       console.log('addingwokrout is true');
       fetch('/api/trainers/exercise', {
@@ -112,7 +107,10 @@ function ModalForm(props) {
         },
       })
         .then((res) => res.text())
-        .then((response) => props.append())
+        .then((response) => {
+          props.setNewWorkoutPlan(response);
+          props.append()
+        })
         .catch((err) => console.log(err));
     } else {
       fetch('/api/trainers/exercise', {
@@ -134,7 +132,7 @@ function ModalForm(props) {
     }
   }
   const checkForm = () => {
-    if (addingWorkout) {
+    if (props.addingWorkout) {
     }
 
     props.handleClose();

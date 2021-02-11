@@ -126,6 +126,7 @@
   border-radius: 5px;
   background: linear-gradient(#8c8cff, #5757c0);
   box-shadow: 2px 2px 2px 2px rgb(192, 192, 192);
+  margin-left: 10px;
 }
 #frequency-time-id {
   font-size: 17px;
@@ -161,7 +162,7 @@
   justify-content: center;
   align-items: center;
 }
-#edit-button-id {
+.edit-button-id {
   width: 80px;
   padding: 5px;
   margin: 0 3px;
@@ -171,7 +172,7 @@
   box-shadow: 2px 2px 2px #3f3f3f;
   color: #fff;
 }
-#remove-button-id {
+.remove-button-id {
   width: 80px;
   padding: 5px;
   margin: 0 3px;

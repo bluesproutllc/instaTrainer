@@ -6,8 +6,12 @@ const router = express.Router();
 const clientsControllers = require('../controllers/clientsControllers');
 
 
-router.get('/dashboard', clientsControllers.getExersices, (req, res) =>
-  res.status(200).json(res.locals.dashboard)
+router.get('/dashboard', clientsControllers.getExersices, (req, res) => {
+  console.log('res.local', res.local)
+  const {profile, workout} = res.locals;
+    return res.status(200).json({profile, workout})
+
+  }
 );
 
 

@@ -12,7 +12,8 @@ import ClientContainer from './ClientContainer.jsx';
 import ClientsContainer from './ClientsContainer.jsx';
 
 
-function Trainer() {
+function Trainer(props) {
+  console.log(props);
   return (
     <div>
       <h1>Trainer Page</h1>

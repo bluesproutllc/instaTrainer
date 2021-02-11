@@ -49,6 +49,8 @@ function ClientContainer(props) {
   const [exercisesDropdown, setExercisesDropdown] = useState();
   const [appendNewExcercise, setappendNewExercise] = useState();
   const [addingWorkout, setAddingWorkout] = useState(true);
+  const [exerciseCards, setExerciseCards] = useState();
+  const [newWorkoutPlan, setNewWorkoutPlan] = useState();
   const [clienInfo, setClientInfo] = useState({
     client_name: 'Dennis',
     age: '25',
@@ -56,6 +58,7 @@ function ClientContainer(props) {
     height: '5.5',
     weight: '140',
   });
+
   const changeView = () => {
     setAuthorizedView(true);
   };
@@ -69,13 +72,43 @@ function ClientContainer(props) {
       .then((response) => setExistingExercises(response))
       .catch((err) => console.log(err));
   };
-  const getClientInfo = () => {
-    fetch('/api/clients/dashboard')
+  //const exerciseCards = [];
+  //will use props.id to fetch request
+  const tempID = 12;
+  useEffect(() => {
+    fetch(`/api/trainers/${tempID}`)
       .then((res) => res.json())
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log(response);
+        const gotCards = [];
+        for (let i = 0; i < response.length; i += 1) {
+          gotCards.push(
+            <ExercisesCard
+              plan_duration={response[i].plan_duration}
+              frequency={response[i].frequency}
+              exercise_id={response[i].exercise_id}
+              notes={response[i].notes}
+              client_id={response[i].client_id}
+              id={`${i}`}
+              authorizedView={authorizedView}
+              setExistingExercises={setExistingExercises}
+              existingExercises={existingExercises}
+              exercisesDropdown={exercisesDropdown}
+              setExercisesDropdown={setExercisesDropdown}
+              appendNewExcercise={appendNewExcercise}
+              append={append}
+              handleOpen={handleOpen}
+              handleClose={handleClose}
+              removeCard={removeCard}
+              cardNum={`${i}`}
+            />
+          );
+        }
+        setExerciseCards(gotCards);
+      })
       .catch((err) => console.log(err));
-  };
-
+  }, []);
+  const getClientWorkouts = () => {};
   const getAsssignedWorkouts = () => {
     fetch('/api/clients/dashboard')
       .then((res) => res.json())
@@ -86,43 +119,46 @@ function ClientContainer(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const removeCard = (e) => {
+    const findCardElem = e.target.id.replace(/[^0-9]/g, '');
+    console.log(findCardElem);
+    const cardElem = document.getElementById(findCardElem);
+    function removeAllChildNodes(parent) {
+      while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+      }
+    }
+    removeAllChildNodes(cardElem);
+  };
 
   const newCard = [];
   const append = () => {
-    newCard.unshift(
+    newWorkoutPlan.newCard.unshift(
       <ExercisesCard
+        plan_duration={newWorkoutPlan.plan_duration}
+        frequency={newWorkoutPlan.frequency}
+        exercise_id={newWorkoutPlan.exercise_id}
+        notes={newWorkoutPlan.notes}
+        client_id={newWorkoutPlan.client_id}
         authorizedView={authorizedView}
         existingExercises={existingExercises}
         exercisesDropdown={exercisesDropdown}
         setExercisesDropdown={setExercisesDropdown}
         appendNewExcercise={appendNewExcercise}
         append={append}
+        addingWorkout={false}
       />
     );
     console.log('newcard in append');
     setappendNewExercise(newCard);
   };
-  const exerciseCards = [];
-  for (let i = 0; i < 5; i += 1) {
-    exerciseCards.push(
-      <ExercisesCard
-        authorizedView={authorizedView}
-        setExistingExercises={setExistingExercises}
-        existingExercises={existingExercises}
-        exercisesDropdown={exercisesDropdown}
-        setExercisesDropdown={setExercisesDropdown}
-        appendNewExcercise={appendNewExcercise}
-        append={append}
-        handleOpen={handleOpen}
-        handleClose={handleClose}
-      />
-    );
-  }
 
   return (
     <div className='client-home-page-container'>
       <div className='user-profile-container'>
-        {authorizedView?<h2>Edit {`${clienInfo.client_name}`}'s Workout Plan</h2>: null}
+        {authorizedView ? (
+          <h2>Edit {`${clienInfo.client_name}`}'s Workout Plan</h2>
+        ) : null}
         <div className='image-container'>
           <img
             className='image-class'
@@ -162,6 +198,7 @@ function ClientContainer(props) {
                 <h2 id='spring-modal-title'>Add WorkOut</h2>
                 <ModalForm
                   key='modal-submit'
+                  setNewWorkoutPlan={setNewWorkoutPlan}
                   existingExercises={existingExercises}
                   exercisesDropdown={exercisesDropdown}
                   setExercisesDropdown={setExercisesDropdown}
@@ -177,7 +214,7 @@ function ClientContainer(props) {
       </div>
       <div id='cards-feed-id' className='cards-feed-container'>
         {appendNewExcercise ? appendNewExcercise : null}
-        {exerciseCards}
+        {exerciseCards ? exerciseCards : null}
       </div>
     </div>
   );
