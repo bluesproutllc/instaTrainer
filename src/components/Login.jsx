@@ -91,30 +91,15 @@ export default function Login(props) {
       method: 'POST',
       headers: { 'Content-Type': 'Application/JSON'},
     })
-      // .then(response => response.json())
       .then(res => {
         // *** NEED TO CHECK IF USER IS CLIENT OR TRAINER
         if (res.status === 200) {
-          console.log('got the login', res)
-          // setLoggedIn(true);
-          // if (userType === 'client') {
-          //   props.history.push('/client');
-          // }
-          // else {
-          //   props.history.push('/trainer')
-          // }
+          props.history.push('/dashboard');
         } else alert("Username/Password are incorrect. Please try again, or Sign up Now!")
         
       })
       .catch(err => console.log('error username or password does not exist: ', err))
   }
-
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     // depending on user, go to either client or dashboard
-  //     history.push('/')
-  //   }
-  // }, [loggedIn]);
   
   return (
     <Grid container component="main" className={classes.root}>
