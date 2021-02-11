@@ -27,7 +27,8 @@ function Client() {
 
   useEffect(() => {
     fetch('/api/clients/dashboard')
-      .then
+      .then(res => res.json())
+      .then(response => console.log(response))
   })
   //tentative have loop to show cards - will wait on backend endpoint connection later
   const exerciseCards = [];
