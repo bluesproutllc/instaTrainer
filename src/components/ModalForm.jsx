@@ -40,7 +40,7 @@ const useStylesSubmitButton = makeStyles((theme) => ({
 }));
 
 function ModalForm(props) {
-  console.log('exercisesDropdown prop>>', props.exercisesDropdown);
+  ///console.log('exercisesDropdown prop>>', props.setNewWorkoutPlan);
   const classes = useStyles();
   const classesTextField = useStylesTextField();
   const classesSubmitButton = useStylesSubmitButton();
@@ -108,8 +108,14 @@ function ModalForm(props) {
       })
         .then((res) => res.text())
         .then((response) => {
-          props.setNewWorkoutPlan(response);
-          props.append()
+          const newCard = {
+            plan_duration: duration,
+            frequency,
+            client_id: 12,
+            exercise_id: exercise,
+            notes,
+          };
+          props.append(newCard);
         })
         .catch((err) => console.log(err));
     } else {

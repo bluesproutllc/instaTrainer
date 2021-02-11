@@ -84,6 +84,7 @@ function ClientContainer(props) {
         for (let i = 0; i < response.length; i += 1) {
           gotCards.push(
             <ExercisesCard
+              addingWorkout={false}
               plan_duration={response[i].plan_duration}
               frequency={response[i].frequency}
               exercise_id={response[i].exercise_id}
@@ -132,14 +133,15 @@ function ClientContainer(props) {
   };
 
   const newCard = [];
-  const append = () => {
-    newWorkoutPlan.newCard.unshift(
+  const append = (card) => {
+    console.log('this is the newwork out', newWorkoutPlan);
+    newCard.unshift(
       <ExercisesCard
-        plan_duration={newWorkoutPlan.plan_duration}
-        frequency={newWorkoutPlan.frequency}
-        exercise_id={newWorkoutPlan.exercise_id}
-        notes={newWorkoutPlan.notes}
-        client_id={newWorkoutPlan.client_id}
+        key='newcard'
+        plan_duration={card.plan_duration}
+        frequency={card.frequency}
+        exercise_id={card.exercise_id}
+        notes={card.notes}
         authorizedView={authorizedView}
         existingExercises={existingExercises}
         exercisesDropdown={exercisesDropdown}

@@ -55,6 +55,8 @@ function ExercisesCard({
   exercise_id,
   notes,
   client_id,
+  setNewWorkoutPlan,
+  addingWorkout,
 }) {
   //console.log(props)
   const classes = useStyles();
@@ -100,7 +102,7 @@ function ExercisesCard({
               </div>
             </div>
             <p id='notes-id' className='exercise-detail'>
-              Notes:{ `${notes}`}
+              Notes:{`${notes}`}
             </p>
           </div>
           {authorizedView ? (
@@ -142,6 +144,7 @@ function ExercisesCard({
                         setExercisesDropdown={setExercisesDropdown}
                         appendNewExcercise={appendNewExcercise}
                         append={append}
+                        addingWorkout={addingWorkout}
                         handleClose={handleClose}
                       />
                     </div>
