@@ -2,10 +2,11 @@ import React, { Fragment, useState, useEffect } from 'react';
 import ExercisesCard from './ExercisesCard.jsx';
 function ClientContainer(props) {
   console.log('ClientContainer props: ', props);
-  //tentative have loop to show cards - will wait on backend endpoint connection later
+  //tentative have loop to show cards - will wait on backend endpoint connection 
+  //TODO: use exercise id as key
   const exerciseCards = [];
   for (let i = 0; i < 5; i += 1) {
-    exerciseCards.push(<ExercisesCard />);
+    exerciseCards.push(<ExercisesCard key={i}/>);
   }
   return (
     <div className='client-home-page-container'>
