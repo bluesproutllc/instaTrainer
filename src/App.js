@@ -3,9 +3,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 import PrivateRoute from './routes/PrivateRoute.jsx';
+import PublicRoute from './routes/PublicRoute.jsx';
 
 import Client from './components/Client.jsx';
 import Trainer from './components/Trainer.jsx';
@@ -20,17 +22,11 @@ function App() {
         <nav>
           <ul>
             <li>  
-              <Link to="/">Home</Link>
+              <Link to="/login">Login</Link>
             </li>
             <li>
               <Link to="/signup">Signup</Link>
             </li>
-            {/* <li>
-              <Link to="/client/dashboard">Client</Link>
-            </li>
-            <li>
-              <Link to="/trainer/dashboard">Trainer</Link>
-            </li> */}
             <li>
               <Link to="/dashboard">Dashboard</Link>
             </li>
@@ -38,15 +34,11 @@ function App() {
         </nav>
 
         <Switch>
-          {/* restricted login route */}
           <Route exact path="/">
-            <Login />
+            <Redirect to="/login"/>
           </Route>
-          {/* restricted signup route */}
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          {/* private dashboard route */}
+          <PublicRoute component={Login} restricted={true} path="/login" />
+          <PublicRoute component={Signup} restricted={true} path="/Signup" />
           <PrivateRoute component={Dashboard} path="/dashboard"/>
         </Switch>
       </div>

@@ -1,16 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Client from './Client.jsx';
 import Trainer from './Trainer.jsx';
+import { isTrainer } from '../utils.js'
 
 function Dashboard() {
-  const getUserType = () => {
-    return 'client';
-    return 'trainer';
-  }
   return (
     <div>
       <h1>Dashboard Page</h1>
-      {(getUserType() === 'client') ? <Client /> : <Trainer />}
+      {(isTrainer() ? <Trainer /> : <Client />)}
     </div>
   )
 }
