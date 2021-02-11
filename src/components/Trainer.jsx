@@ -37,7 +37,7 @@ function Trainer(props) {
         <Route path="/myclients/:clientid" render={() => <ClientContainer />} />
       </Switch>
     </div>
-  )
+  );
 }
 
 export default Trainer;
