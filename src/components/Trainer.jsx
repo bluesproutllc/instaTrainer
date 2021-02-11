@@ -12,7 +12,8 @@ import ClientContainer from './ClientContainer.jsx';
 import ClientsContainer from './ClientsContainer.jsx';
 
 
-function Trainer() {
+function Trainer(props) {
+  console.log(props);
   return (
     <div>
       <h1>Trainer Page</h1>
@@ -24,7 +25,7 @@ function Trainer() {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>  
-              <Link to="/trainer/client">Trainer/Client</Link>
+              <Link to="/trainer/client">Trainer/client</Link>
             </li>
             {/* <li>
               <Link to="/trainer/dennis">Dennis</Link>
@@ -39,7 +40,7 @@ function Trainer() {
         {/* should be PrivateRoute. path should be /trainer/:clientId but that doesn't work currently*/}
         {/* weird. event the trainer/client route doesn't work currently */}
         <PrivateRoute path="/trainer/client" component={ClientContainer} />
-        <Route path="*" render={() => <h1>Not found</h1>} />
+        {/* <Route path="*" render={() => <h1>Not found</h1>} /> */}
       </Switch>
     </div>
   )
