@@ -7,7 +7,7 @@ const trainersControllers = require('../controllers/trainersControllers');
 
 // get trainer's dashboard with all clients
 router.get('/dashboard', trainersControllers.getClients, (req, res) => {
-  const trainerInfoAndClients = {trainer: {firstName: 'FIRSTNAME', lastName: 'LASTNAME', trainerId: 'TRAINERID'}, clients: res.locals.clients};
+  const trainerInfoAndClients = {trainer: {first_name: 'FIRSTNAME', last_name: 'LASTNAME', trainer_id: 'TRAINERID'}, clients: res.locals.clients};
   res.status(200).json(trainerInfoAndClients);
 })
 // get all exercises when the modal pops up

@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from 'react';
 function Header({bio}) {
-  const { firstName, lastName} = bio;
+  const {first_name, last_name} = bio;
   return (
     <div>
       <h1>Header</h1>
-      <h2>{`Hello ${firstName} ${lastName}`}</h2>
+      <h2>{`Hello ${first_name} ${last_name}`}</h2>
     </div>
   )
 }
