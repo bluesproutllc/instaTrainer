@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import ExercisesCard from './ExercisesCard.jsx';
+import ClientCard from './ClientCard';
 
 function Client() {
   useEffect(() => {

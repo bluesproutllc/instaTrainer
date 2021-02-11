@@ -6,6 +6,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import { useSpring, animated } from 'react-spring/web.cjs';
 import ModalForm from './ModalForm';
+import ClientCard from './ClientCard';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -52,13 +53,8 @@ function ClientContainer(props) {
   const [addingWorkout, setAddingWorkout] = useState(true);
   const [exerciseCards, setExerciseCards] = useState();
   const [newWorkoutPlan, setNewWorkoutPlan] = useState();
-  const [clienInfo, setClientInfo] = useState({
-    client_name: 'Dennis',
-    age: '25',
-    gender: 'male',
-    height: '5.5',
-    weight: '140',
-  });
+  const [clientInfo, setClientInfo] = useState();
+  console.log('clientInfo: ', clientInfo);
 
   const changeView = () => {
     setAuthorizedView(true);
@@ -81,7 +77,17 @@ function ClientContainer(props) {
     fetch(`/api/trainers/${clientId}`)
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
+        console.log('api/trainers/clientid response: ', response);
+        //TODO: change format of response to be {clientInfo: {first_name, ...}, exercises: [{plan_duration, ...}]}
+        const {first_name, last_name, age, gender, height, weight} = response[0];
+        setClientInfo({
+          first_name,
+          last_name,
+          age,
+          gender,
+          height,
+          weight,
+        })
         const gotCards = [];
         for (let i = 0; i < response.length; i += 1) {
           gotCards.push(
@@ -157,27 +163,7 @@ function ClientContainer(props) {
 
   return (
     <div className='client-home-page-container'>
-      <div className='user-profile-container'>
-        {authorizedView ? (
-          <h2>Edit {`${clienInfo.client_name}`}'s Workout Plan</h2>
-        ) : null}
-        <div className='image-container'>
-          <img
-            className='image-class'
-            src='https://ca.slack-edge.com/T01C0PF26GK-U01DSA9KMFV-5446a9a02b96-512'
-            alt='profile-pic'
-          />
-        </div>
-        <div>
-          <h3 className='client-detail'>Matt Jiang</h3>
-        </div>
-        <div className='client-details-container'>
-          <p className='client-detail'>age: {` ${clienInfo.age}`}</p>
-          <p className='client-detail'>gender:{` ${clienInfo.gender}`}</p>
-          <p className='client-detail'>height:{` ${clienInfo.height}`}</p>
-          <p className='client-detail'>weight:{` ${clienInfo.weight}`}</p>
-        </div>
-      </div>
+      {clientInfo && <ClientCard clientInfo={clientInfo}/>}
       <div className='edit-card-container'>
         <button id='add-button-id' className='edit-button' onClick={handleOpen}>
           Add WorkOut
