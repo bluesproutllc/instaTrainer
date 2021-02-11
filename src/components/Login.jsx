@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import AppContext from './context/index';
-import Avatar from '@material-ui/core/Avatar';
+// import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -14,8 +14,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
-// import { reset } from 'nodemon';
 import { Link, useHistory } from "react-router-dom";
+import logo from "../assets/logo.png"
 
 function Copyright() {
   return (
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundImage: 'url(https://source.unsplash.com/?sports)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
     theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -52,10 +52,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
+  // avatar: {
+  //   margin: theme.spacing(1),
+  //   backgroundColor: theme.palette.secondary.main,
+  // },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -107,12 +107,13 @@ export default function Login(props) {
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+          {/* <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          </Avatar> */}
+          <img src={logo}></img>
+          {/* <Typography component="h1" variant="h5">
             Sign in
-          </Typography>
+          </Typography> */}
           <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate>
             <TextField
               inputRef={register}
@@ -152,28 +153,25 @@ export default function Login(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-
             >
+
              Sign In
             </Button>
-            <Grid container>
+            
             <Grid item>
                 <Link  variant="body2" to='/signupclient'>
                   {"Sign up as Client"}
                 </Link>
               </Grid>
-              </Grid>
-            <Grid container>
+             
 
               <Grid item>
                 <Link  variant="body2" to='/signuptrainer'>
                   {"Sign up as Trainer"}
                 </Link>
             </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
+           
+            
           </form>
         </div>
       </Grid>

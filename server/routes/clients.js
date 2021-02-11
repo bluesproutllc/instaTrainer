@@ -10,7 +10,6 @@ router.get('/dashboard', clientsControllers.getExersices, (req, res) => {
   console.log('res.local', res.local)
   const {profile, workout} = res.locals;
     return res.status(200).json({profile, workout})
-
   }
 );
 
