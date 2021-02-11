@@ -10,10 +10,11 @@ authControllers.setSSIDCookie = (req, res, next) => {
   // randomNumber = randomNumber.substring(2, randomNumber.length);
   // set cookie with key 'ssid' to value user's id and client type
   const ssid = `${res.locals.userType}${res.locals.userId}`;
-  res.cookie('ssid', ssid);
-  console.log('ssid>>>', ssid);
-  res.locals.ssid = ssid;
-  return next();
+  if (!res.locals.status) {
+    res.cookie('ssid', ssid);
+     res.locals.ssid = ssid;
+     return next();
+  } else return next();
 };
 // startCookieSession - start a session where user login is persistent
 authControllers.startCookieSession = (req, res, next) => {
@@ -59,11 +60,12 @@ authControllers.createUsers = (req, res, next) => {
               hashedPassword
             ];
             db.query(
-              `INSERT INTO trainers (username, first_name, last_name, password) VALUES ($1, $2, $3, $4);`,
+              `INSERT INTO trainers (username, first_name, last_name, password) VALUES ($1, $2, $3, $4) RETURNING trainer_id;`,
               values
             )
               .then((data) => {
-                console.log('data', data);
+                res.locals.userType = userType;
+                res.locals.userId = data.rows[0].trainer_id;
                 return next();
               })
               .catch((err) => next({ err }));
@@ -109,10 +111,14 @@ authControllers.createUsers = (req, res, next) => {
               trainer_id,
             ];
             db.query(
-              `INSERT INTO clients (username, password, first_name, last_name, age, weight, height, gender, trainer_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`,
+              `INSERT INTO clients (username, password, first_name, last_name, age, weight, height, gender, trainer_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING client_id;`,
               values
             )
-              .then((data) => next())
+              .then((data) => {
+                res.locals.userType = userType;
+                res.locals.userId = data.rows[0].client_id;
+                return next();
+              })
               .catch((err) => next({ err }));
           });
         }
@@ -138,7 +144,7 @@ authControllers.verifyUsers = (req, res, next) => {
         bcrypt.compare(password, data.rows[0].password, (err, result) => {
           if (result === true) {
             // if provided password matches saved password
-            res.locals.statue = true;
+            res.locals.status = true;
             res.locals.userId = data.rows[0][`${userType}_id`];
             res.locals.userType = userType;
             return next();
