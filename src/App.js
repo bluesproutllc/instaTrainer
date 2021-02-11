@@ -15,10 +15,6 @@ import Signup from './components/Signup.jsx';
 import Dashboard from './components/Dashboard.jsx';
 
 function App() {
-  function isTrainerview() {
-    return true;
-    return false;
-  }
   return (
       <div>
         <nav>
@@ -42,6 +38,7 @@ function App() {
           <PublicRoute component={Login} restricted={true} path="/login" />
           <PublicRoute component={Signup} restricted={true} path="/Signup" />
           <PrivateRoute component={Dashboard} path="/dashboard"/>
+          <Route path="*" render={() => <h1>Not found</h1>} />
         </Switch>
       </div>
   );
