@@ -14,13 +14,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
-<<<<<<< HEAD
 import { Link, useHistory } from "react-router-dom";
 import logo from "../assets/logo.png"
-=======
-// import { reset } from 'nodemon';
-import { Link, useHistory } from "react-router-dom";
->>>>>>> c0352081db6eb71d5edfb88cf3bda85b65f64b78
 
 function Copyright() {
   return (
@@ -43,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    // backgroundImage: 'url(https://source.unsplash.com/?sports)',
+    backgroundImage: 'url(https://source.unsplash.com/?sports)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
     theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
