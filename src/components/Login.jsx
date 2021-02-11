@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-function Login() {
+function Login(props) {
   const login = () => {
     console.log('login was clicked');
     fetch('/api/auth/signin', {
@@ -16,6 +16,8 @@ function Login() {
       .then((res) => res.text())
       .then((response) => {
         console.log('response from login method: ', response);
+        const { history } = props;
+        history.push('/dashboard');
       })
       .catch((err) => console.log(err));
   }
