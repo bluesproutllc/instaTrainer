@@ -40,7 +40,7 @@ const Fade = React.forwardRef(function Fade(props, ref) {
   );
 });
 
-function ExercisesCard(props) {
+function ExercisesCard({ authorizedView }) {
   //console.log(props)
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -83,31 +83,33 @@ function ExercisesCard(props) {
               Notes: Its grind time. No days off bro!
             </p>
           </div>
-          <div className='edit-card-container'>
-            <button className='edit-button' onClick={handleOpen}>
-              Edit
-            </button>
-            <button>Remove</button>
-            <Modal
-              aria-labelledby='spring-modal-title'
-              aria-describedby='spring-modal-description'
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div className={classes.paper}>
-                  <h2 id='spring-modal-title'>Spring modal</h2>
-                  <ModalForm />
-                </div>
-              </Fade>
-            </Modal>
-          </div>
+          {authorizedView ? (
+            <div className='edit-card-container'>
+              <button className='edit-button' onClick={handleOpen}>
+                Edit
+              </button>
+              <button>Remove</button>
+              <Modal
+                aria-labelledby='spring-modal-title'
+                aria-describedby='spring-modal-description'
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open}>
+                  <div className={classes.paper}>
+                    <h2 id='spring-modal-title'>Add WorkOut</h2>
+                    <ModalForm />
+                  </div>
+                </Fade>
+              </Modal>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

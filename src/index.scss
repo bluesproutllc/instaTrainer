@@ -154,6 +154,7 @@
 }
 .dropdown-container {
   display: flex;
+  flex-direction: column;
 }
 .dropdown-detail-container {
   display: flex;
