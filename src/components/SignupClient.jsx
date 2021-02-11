@@ -205,16 +205,7 @@ export default function SignupClient() {
       </Grid>
             
 
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox 
-                  inputRef={register} 
-                  value={userType}  
-                  color="primary" 
-                  onChange={handleClick}/>}
-                label="Check here to register as Trainer"
-              />
-            </Grid>
+            
           </Grid>
           <Button
             type="submit"

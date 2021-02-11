@@ -144,7 +144,6 @@ authControllers.verifyUsers = (req, res, next) => {
         bcrypt.compare(password, data.rows[0].password, (err, result) => {
           if (result === true) {
             // if provided password matches saved password
-            res.locals.status = true;
             res.locals.userId = data.rows[0][`${userType}_id`];
             res.locals.userType = userType;
             return next();

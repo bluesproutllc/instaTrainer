@@ -1,11 +1,13 @@
 import React from 'react';
 // import Login from './components/Login.jsx';
-import Signup from './components/SignupTrainer.jsx';
+// import SignupTrainer from './components/SignupTrainer.jsx';
+import SignupClient from './components/SignupClient.jsx';
 
 function App() {
   return <div>Hello World!
     {/* <Login /> */}
-    <Signup />
+    {/* <SignupTrainer /> */}
+    <SignupClient />
   </div>;
 }
 export default App;
