@@ -9,7 +9,6 @@ function App() {
   return (
     <div>
       Nav Bar Place Holder
-      {isTrainerview() ? <ClientContainer /> : <Client />}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-
+import ExercisesCard from './ExercisesCard.jsx';
 function Client() {
   const [clientInfo, setclientInfo] = useState();
   const [getExercises, setgetExercises] = useState([]);
