@@ -36,9 +36,9 @@ function App() {
             <Redirect to="/login"/>
           </Route>
           <PublicRoute restricted={true} path="/login" component={Login} />
-          <PublicRoute restricted={true} path="/Signup" component={Signup} />
+          <PublicRoute restricted={true} path="/signup" component={Signup} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
-          <PrivateRoute path="/trainer/client" component={Dashboard} />
+          <PrivateRoute path="/myclients/:client" component={Dashboard} />
           <Route path="*" render={() => <h1>Not found</h1>} />
         </Switch>
       </div>
