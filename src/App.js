@@ -16,7 +16,7 @@ import Dashboard from './components/Dashboard.jsx';
 function App() {
   return (
       <div>
-        <nav>
+        {/* <nav>
           <ul>
             <li>  
               <Link to="/login">Login</Link>
@@ -31,7 +31,7 @@ function App() {
               <Link to="/dashboard">Dashboard</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
 
         <Switch>
           <Route exact path="/">
