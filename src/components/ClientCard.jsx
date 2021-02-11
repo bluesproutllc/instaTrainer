@@ -3,7 +3,6 @@ function ClientCard({ clientInfo }) {
   const { first_name, last_name, age, gender, height, weight } = clientInfo;
   return (
 <div className='user-profile-container'>
-        <h2>Edit Matt Jiang's Workout Plan</h2>
         <div className='image-container'>
           <img
             className='image-class'

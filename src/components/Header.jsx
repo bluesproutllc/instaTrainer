@@ -3,8 +3,9 @@ function Header({bio}) {
   const {first_name, last_name} = bio;
   return (
     <div>
-      <h1>Header</h1>
-      <h2>{`Hello ${first_name} ${last_name}`}</h2>
+      <nav id="nav-bar">
+        <h2>{first_name && last_name && `Hello ${first_name} ${last_name}`}</h2>
+      </nav>
     </div>
   )
 }

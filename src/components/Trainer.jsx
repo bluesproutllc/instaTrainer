@@ -31,7 +31,6 @@ function Trainer(props) {
 
   return (
     <div>
-      <h1>Trainer Page</h1>
       <Header bio={trainerInfo}/>
       <Switch>
         <Route path="/dashboard" render={() => <ClientsContainer clientsInfo={clientsInfo} />} />
