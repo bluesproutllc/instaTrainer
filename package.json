@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
     "concurrently": "^5.3.0",
@@ -28,7 +29,9 @@
     "pg": "^8.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-expanding-textarea": "^2.3.1",
     "react-router-dom": "^5.2.0",
+    "react-spring": "^8.0.27",
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0"
   },

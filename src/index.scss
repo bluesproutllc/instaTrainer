@@ -3,9 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+.image-container {
+  background-color: #fff;
+}
 .image-class {
   height: 80px;
+  border-radius: 100px;
 }
 .client-home-page-container {
   display: flex;
@@ -15,13 +18,14 @@
 }
 
 .user-profile-container {
-  padding-top: 5rem;
+  padding-top: 2rem;
   border-style: solid;
   border-color: coral;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #fff;
 }
 
 .exercise-image {
@@ -30,19 +34,23 @@
 }
 .client-card-container {
   display: flex;
-  padding-top: 2rem;
-  background-color: #4c82b0;
+  padding-top: 1.5rem;
+  border-radius: 1px;
+  box-shadow: 2px 5px 5px 5px rgb(224, 224, 224);
 }
+
 .exercise-info-container {
-  padding-left: 2rem;
+  padding-left: 5px;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
+  height: 150px;
 }
 .exercise-info-container > * {
   flex: 0.2;
 }
 .client-details-container {
-  background-color: aquamarine;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,4 +66,97 @@
 
 .cards-feed-container > * {
   flex: 1.2;
+}
+.exercise-detail {
+  font-family: Sans-serif;
+  color: #fff;
+}
+@media (max-width: 500px) {
+  .client-card-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .exercise-detail {
+    margin: 5px;
+    color: #fff;
+    font-family: Sans-serif;
+  }
+}
+
+.div-container {
+  padding-top: 20px;
+}
+.right-side-excercise-card {
+  padding-left: 15px;
+}
+.client-detail {
+  background-color: #fff;
+}
+
+.duration-frequency-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.duration-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 110px;
+  flex-direction: column;
+  background: linear-gradient(#5fddff, #34b4e4);
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 2px rgb(192, 192, 192);
+}
+#duration-min-id {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.frequency-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 110px;
+  flex-direction: column;
+  background-color: rgb(168, 244, 96);
+  border-radius: 5px;
+  background: linear-gradient(#8c8cff, #5757c0);
+  box-shadow: 2px 2px 2px 2px rgb(192, 192, 192);
+}
+#frequency-time-id {
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+#notes-id {
+  color: black;
+}
+.buttons-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-card-container {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 10px;
+}
+//modal form
+
+.modal-form-container {
+  display: flex;
+  flex-direction: column;
+}
+.dropdown-container {
+  display: flex;
+}
+.dropdown-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

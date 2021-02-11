@@ -15,6 +15,10 @@ import Signup from './components/Signup.jsx';
 import Dashboard from './components/Dashboard.jsx';
 
 function App() {
+  function isTrainerview() {
+    return true;
+    return false;
+  }
   return (
       <div>
         <nav>
