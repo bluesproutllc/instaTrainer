@@ -47,6 +47,14 @@ function ClientContainer(props) {
   const [authorizedView, setAuthorizedView] = useState(true);
   const [existingExercises, setExistingExercises] = useState();
   const [exercisesDropdown, setExercisesDropdown] = useState();
+  const [appendNewExcercise, setappendNewExercise] = useState();
+  const [clienInfo, setClientInfo] = useState({
+    client_name: 'Dennis',
+    age: '25',
+    gender: 'male',
+    height: '5.5',
+    weight: '140',
+  });
   const changeView = () => {
     setAuthorizedView(true);
   };
@@ -54,23 +62,62 @@ function ClientContainer(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
+    //this will pull all info from exercise table so we can filter on modal
     fetch('/api/trainers/exercises')
       .then((res) => res.json())
       .then((response) => setExistingExercises(response))
       .catch((err) => console.log(err));
   };
+  const getClientInfo = () => {
+    fetch('/api/clients/dashboard')
+      .then((res) => res.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  };
 
+  const getAsssignedWorkouts = () => {
+    fetch('/api/clients/dashboard')
+      .then((res) => res.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  };
+  getAsssignedWorkouts();
   const handleClose = () => {
     setOpen(false);
   };
   const exerciseCards = [];
   for (let i = 0; i < 5; i += 1) {
-    exerciseCards.push(<ExercisesCard authorizedView={authorizedView} />);
+    exerciseCards.push(
+      <ExercisesCard
+        authorizedView={authorizedView}
+        existingExercises={existingExercises}
+        exercisesDropdown={exercisesDropdown}
+        setExercisesDropdown={setExercisesDropdown}
+        appendNewExcercise={appendNewExcercise}
+        append={append}
+      />
+    );
   }
+  const newCard = [];
+  const append = () => {
+    newCard.unshift(
+      <ExercisesCard
+        authorizedView={authorizedView}
+        existingExercises={existingExercises}
+        exercisesDropdown={exercisesDropdown}
+        setExercisesDropdown={setExercisesDropdown}
+        appendNewExcercise={appendNewExcercise}
+        append={append}
+      />
+    );
+    console.log('newcard in append');
+    setappendNewExercise(newCard);
+  };
+
   return (
     <div className='client-home-page-container'>
       <div className='user-profile-container'>
-        <h2>Edit Matt Jiang's Workout Plan</h2>
+        <h2>Edit {`${clienInfo.client_name}`}'s Workout Plan</h2>
         <div className='image-container'>
           <img
             className='image-class'
@@ -82,10 +129,10 @@ function ClientContainer(props) {
           <h3 className='client-detail'>Matt Jiang</h3>
         </div>
         <div className='client-details-container'>
-          <p className='client-detail'>age: 25</p>
-          <p className='client-detail'>gender:male</p>
-          <p className='client-detail'>height:10ft</p>
-          <p className='client-detail'>weight: 180lbs</p>
+          <p className='client-detail'>age: {` ${clienInfo.age}`}</p>
+          <p className='client-detail'>gender:{` ${clienInfo.gender}`}</p>
+          <p className='client-detail'>height:{` ${clienInfo.height}`}</p>
+          <p className='client-detail'>weight:{` ${clienInfo.weight}`}</p>
         </div>
       </div>
       <div className='edit-card-container'>
@@ -109,16 +156,22 @@ function ClientContainer(props) {
               <div className={classes.paper}>
                 <h2 id='spring-modal-title'>Add WorkOut</h2>
                 <ModalForm
+                  key='modal-submit'
                   existingExercises={existingExercises}
                   exercisesDropdown={exercisesDropdown}
                   setExercisesDropdown={setExercisesDropdown}
+                  appendNewExcercise={appendNewExcercise}
+                  append={append}
                 />
               </div>
             ) : null}
           </Fade>
         </Modal>
       </div>
-      <div className='cards-feed-container'>{exerciseCards}</div>
+      <div id='cards-feed-id' className='cards-feed-container'>
+        {appendNewExcercise ? appendNewExcercise : null}
+        {exerciseCards}
+      </div>
     </div>
   );
 }

@@ -161,3 +161,23 @@
   justify-content: center;
   align-items: center;
 }
+#edit-button-id {
+  width: 80px;
+  padding: 5px;
+  margin: 0 3px;
+  background-color: #3d8cc5;
+  outline: none;
+  border: 1px solid #3d8cc5;
+  box-shadow: 2px 2px 2px #3f3f3f;
+  color: #fff;
+}
+#remove-button-id {
+  width: 80px;
+  padding: 5px;
+  margin: 0 3px;
+  background-color: #d84f3b;
+  outline: none;
+  border: 1px solid #d84f3b;
+  box-shadow: 2px 2px 2px #3f3f3f;
+  color: #fff;
+}

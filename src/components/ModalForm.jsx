@@ -94,13 +94,19 @@ function ModalForm(props) {
   //   }, []);
   function handleSubmit(event) {
     event.preventDefault();
+    console.log('form infor>>>', excerciseType);
+    console.log('form infor>>>', exercise);
+    console.log('form infor>>>', duration);
+    console.log('form infor>>>', frequency);
+    console.log('form infor>>>', notes);
+
     fetch('/api/trainers/exercise', {
       method: 'POST',
       body: JSON.stringify({
         plan_duration: duration,
         frequency,
-        client_id: 1,
-        exercise_id: 1,
+        client_id: 5,
+        exercise_id: exercise,
         notes,
       }),
       headers: {
@@ -108,7 +114,7 @@ function ModalForm(props) {
       },
     })
       .then((res) => res.text())
-      .then((response) => console.log('this is the response>>>', response))
+      .then((response) => props.append())
       .catch((err) => console.log(err));
   }
 
@@ -145,7 +151,9 @@ function ModalForm(props) {
             >
               {props.exercisesDropdown
                 ? props.exercisesDropdown.map((elem) => {
-                    return <MenuItem value={elem.name}>{elem.name}</MenuItem>;
+                    return (
+                      <MenuItem value={elem.exercise_id}>{elem.name}</MenuItem>
+                    );
                   })
                 : null}
             </Select>
@@ -188,25 +196,6 @@ function ModalForm(props) {
               <MenuItem value={4}>4 times/day</MenuItem>
             </Select>
           </FormControl>
-        </div>
-        <div className='dropdown-detail-container'>
-          <h4>Input Exercise:</h4>
-          <div className={classesTextField.root}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id='demo-simple-select-label'>Age</InputLabel>
-              <Select
-                labelId='demo-simple-select-label'
-                id='demo-simple-select'
-                value={exercise}
-                onChange={setExercise}
-              >
-                <MenuItem value={1}>1 times/day</MenuItem>
-                <MenuItem value={2}>2 times/day</MenuItem>
-                <MenuItem value={3}>3 times/day</MenuItem>
-                <MenuItem value={4}>4 times/day</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
         </div>
         <div className='dropdown-container'>
           <div className='dropdown-detail-container'>

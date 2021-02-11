@@ -40,7 +40,14 @@ const Fade = React.forwardRef(function Fade(props, ref) {
   );
 });
 
-function ExercisesCard({ authorizedView }) {
+function ExercisesCard({
+  authorizedView,
+  existingExercises,
+  exercisesDropdown,
+  setExercisesDropdown,
+  appendNewExcercise,
+  append,
+}) {
   //console.log(props)
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -85,11 +92,16 @@ function ExercisesCard({ authorizedView }) {
           </div>
           {authorizedView ? (
             <div className='edit-card-container'>
-              <button className='edit-button' onClick={handleOpen}>
+              <button
+                id='edit-button-id'
+                className='edit-button'
+                onClick={handleOpen}
+              >
                 Edit
               </button>
-              <button>Remove</button>
+              <button id='remove-button-id'>Remove</button>
               <Modal
+                key='modal-form-edit'
                 aria-labelledby='spring-modal-title'
                 aria-describedby='spring-modal-description'
                 className={classes.modal}
@@ -104,7 +116,15 @@ function ExercisesCard({ authorizedView }) {
                 <Fade in={open}>
                   <div className={classes.paper}>
                     <h2 id='spring-modal-title'>Add WorkOut</h2>
-                    <ModalForm />
+                    <ModalForm
+                      key='modal-form-edit'
+                      authorizedView={authorizedView}
+                      existingExercises={existingExercises}
+                      exercisesDropdown={exercisesDropdown}
+                      setExercisesDropdown={setExercisesDropdown}
+                      appendNewExcercise={appendNewExcercise}
+                      append={append}
+                    />
                   </div>
                 </Fade>
               </Modal>
