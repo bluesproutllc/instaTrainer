@@ -7,6 +7,8 @@ const PORT = 3000;
 const authRouter = require('./routes/auth');
 const trainersRouter = require('./routes/trainers');
 const clientsRouter = require('./routes/clients');
+//const workoutRouter = require('./routes/workout');
+
 // parse request body later
 app.use(express.json());
 app.use(bodyParser.json());
@@ -23,6 +25,9 @@ app.use('/api/clients', clientsRouter)
 // handle routes for authentication
 app.use('/api/auth', authRouter)
 // serve static index.html file on root endpoint
+
+// handle route to get client's profile on trainer's dashboard
+//app.use('/api/workout', workoutRouter)
 
 app.get('/', (req, res) => {
   return res.sendFile(path.resolve(__dirname, '../src/index.html'));
