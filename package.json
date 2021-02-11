@@ -29,6 +29,7 @@
     "pg": "^8.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.15.1",
     "react-router-dom": "^5.2.0",
     "sass": "^1.30.0",
     "sass-loader": "^10.1.0"

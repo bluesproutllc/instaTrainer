@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import AppContext from './context/index';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,7 +13,9 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import { useForm } from "react-hook-form";
+// import { reset } from 'nodemon';
+// import { Link, useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -28,6 +30,9 @@ function Copyright() {
   );
 }
 
+
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -36,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -61,46 +66,56 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-// function rand() {
-//   return Math.round(Math.random() * 20) - 10;
-// }
+export default function Login(props) {
 
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
-export default function Login() {
   const classes = useStyles();
-  // const { userLoggedIn, setUserLoggedIn } = useContext(AppContext);
+  
+  // const [loggedIn, setLoggedIn] = useState(false);
+  const [userType, setUserType] = useState('client');
+  const { register, handleSubmit, setValue } = useForm();
+  
+  const handleClick = (e) => {
+    if (userType === 'client') setUserType('trainer')
+    else setUserType('client')
+  }
 
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
+  const onSubmit = (data) => {
+    const values = {
+      username: data.username,
+      password: data.password,
+      userType: userType
+    }
+    console.log(values)
+    fetch('/api/auth/signin', {
+      body: JSON.stringify(values),
+      method: 'POST',
+      headers: { 'Content-Type': 'Application/JSON'},
+    })
+      // .then(response => response.json())
+      .then(res => {
+        // *** NEED TO CHECK IF USER IS CLIENT OR TRAINER
+        if (res.status === 200) {
+          console.log('got the login', res)
+          // setLoggedIn(true);
+          // if (userType === 'client') {
+          //   props.history.push('/client');
+          // }
+          // else {
+          //   props.history.push('/trainer')
+          // }
+        } else alert("Username/Password are incorrect. Please try again, or Sign up Now!")
+        
+      })
+      .catch(err => console.log('error username or password does not exist: ', err))
+  }
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
-    </div>
-  );
-
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     // depending on user, go to either client or dashboard
+  //     history.push('/')
+  //   }
+  // }, [loggedIn]);
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -113,8 +128,9 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate>
             <TextField
+              inputRef={register}
               variant="outlined"
               margin="normal"
               required
@@ -126,6 +142,7 @@ export default function Login() {
               autoFocus
             />
             <TextField
+              inputRef={register}
               variant="outlined"
               margin="normal"
               required
@@ -136,36 +153,26 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="trainer" color="primary" />}
-              label="I am a Trainer"
-            />
+            
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+
             >
-              Sign In
+             Sign In
             </Button>
             <Grid container>
-
-              <Grid item xs={false} sm={4} md={7}>
+              <Grid item xs>
+                {/* <Link href="#" variant="body2">
+                  Forgot password?
+                </Link> */}
+              </Grid>
+              <Grid item>
                 <Link href="#" variant="body2">
-                  {/* {"Don't have an account? Sign Up"} */}
-                  <button type="button" onClick={handleOpen}>
-        Sign up today!
-      </button>
-      <Modal
-      
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        {body}
-      </Modal>
+                  {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
