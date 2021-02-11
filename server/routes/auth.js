@@ -19,7 +19,7 @@ router.post(
   }
 );
 router.post('/signin', authControllers.verifyUsers, authControllers.setSSIDCookie, authControllers.startCookieSession, (req, res) => {
-  if (res.locals.status === 'not found') {
+  if (res.locals.status === 'not found' || res.locals.status === false) {
     return res.status(409).send('user not found');
   }
   const {userId, userType} = res.locals;

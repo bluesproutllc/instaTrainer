@@ -10,10 +10,11 @@ authControllers.setSSIDCookie = (req, res, next) => {
   // randomNumber = randomNumber.substring(2, randomNumber.length);
   // set cookie with key 'ssid' to value user's id and client type
   const ssid = `${res.locals.userType}${res.locals.userId}`;
-  res.cookie('ssid', ssid);
-  console.log('ssid>>>', ssid);
-  res.locals.ssid = ssid;
-  return next();
+  if (!res.locals.status) {
+    res.cookie('ssid', ssid);
+     res.locals.ssid = ssid;
+     return next();
+  } else return next();
 };
 // startCookieSession - start a session where user login is persistent
 authControllers.startCookieSession = (req, res, next) => {
