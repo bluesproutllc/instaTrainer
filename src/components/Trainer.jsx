@@ -10,15 +10,22 @@ import PublicRoute from '../routes/PublicRoute.jsx';
 
 import ClientContainer from './ClientContainer.jsx';
 import ClientsContainer from './ClientsContainer.jsx';
-
+import Header from './Header.jsx';
 
 function Trainer(props) {
-  console.log(props);
+  
+  // get trainer info and client info for each client
+  fetch('/api/trainers/dashboard')
+    .then((res) => res.json())
+    .then((data) => {
+      const clients = data;
+      console.log(clients);
+    });
+
   return (
     <div>
       <h1>Trainer Page</h1>
-      <h1>Header</h1>
-      <h1>Sidebar</h1>
+      <Header />
       <nav>
           <ul>
             <li>  
@@ -33,8 +40,9 @@ function Trainer(props) {
           </ul>
         </nav>
       <Switch>
-        <PrivateRoute path="/dashboard" component={ClientsContainer} />
-        <PrivateRoute path="/myclients/:client" component={ClientContainer} />
+        {/* how to pass clients as props to ClientsContainer? or if not possible, use context */}
+        <Route path="/dashboard" render={() => <ClientsContainer />} />
+        <Route path="/myclients/:client" component={ClientContainer} />
       </Switch>
     </div>
   )
