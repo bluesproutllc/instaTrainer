@@ -8,10 +8,9 @@ import {
 import PrivateRoute from './routes/PrivateRoute.jsx';
 import PublicRoute from './routes/PublicRoute.jsx';
 
-import Client from './components/Client.jsx';
-import Trainer from './components/Trainer.jsx';
 import Login from './components/Login.jsx';
-import Signup from './components/Signup.jsx';
+import SignupTrainer from './components/SignupTrainer.jsx';
+import SignupClient from './components/SignupClient.jsx';
 import Dashboard from './components/Dashboard.jsx';
 
 function App() {
@@ -23,7 +22,10 @@ function App() {
               <Link to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/signup">Signup</Link>
+              <Link to="/signuptrainer">Signup Trainer</Link>
+            </li>
+            <li>
+              <Link to="/signupclient">Signup Client</Link>
             </li>
             <li>
               <Link to="/dashboard">Dashboard</Link>
@@ -36,7 +38,8 @@ function App() {
             <Redirect to="/login"/>
           </Route>
           <PublicRoute restricted={true} path="/login" component={Login} />
-          <PublicRoute restricted={true} path="/signup" component={Signup} />
+          <PublicRoute restricted={true} path="/signuptrainer" component={SignupTrainer} />
+          <PublicRoute restricted={true} path="/signupclient" component={SignupClient} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/myclients/:client" component={Dashboard} />
           <Route path="*" render={() => <h1>Not found</h1>} />
