@@ -145,8 +145,13 @@ export default function Login(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-
             >
+
+            <FormControlLabel
+              control={<Checkbox value="trainer" color="primary" />}
+              label="I am a Trainer"
+            />
+
              Sign In
             </Button>
             <Grid container>
