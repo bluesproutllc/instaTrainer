@@ -40,7 +40,7 @@ trainersControllers.getProfile = (req, res, next) => {
     )
       .then((data) => {
         res.locals.profile = data.rows[0];
-        db.query(`SELECT wp.plan_duration, wp.frequency, wp.exercise_id, wp.notes, e.image_url,
+        db.query(`SELECT wp.plan_duration, wp.frequency, wp.exercise_id, wp.notes, e.image_url, e.name,
         c.client_id
              FROM clients c
              JOIN workout_plan wp
@@ -53,7 +53,7 @@ trainersControllers.getProfile = (req, res, next) => {
             res.locals.workout = 'no plan';
             return next()
           } else {
-            res.locals.workout = data.rows[0];
+            res.locals.workout = data.rows;
             return next()
           }
         }).catch(err => next({err}))

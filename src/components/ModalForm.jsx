@@ -93,12 +93,13 @@ function ModalForm(props) {
     event.preventDefault();
     if (props.addingWorkout) {
       console.log('addingwokrout is true');
+      console.log('props.clienId>>', props.clientId);
       fetch('/api/trainers/exercise', {
         method: 'POST',
         body: JSON.stringify({
           plan_duration: duration,
           frequency,
-          client_id: 12,
+          client_id: props.clientId,
           exercise_id: exercise,
           notes,
         }),

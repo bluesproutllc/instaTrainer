@@ -77,10 +77,10 @@ function ClientContainer(props) {
     fetch(`/api/trainers/${clientId}`)
       .then((res) => res.json())
       .then((response) => {
-        const {profile, workout} = response;
+        const { profile, workout } = response;
         console.log('api/trainers/clientid response: ', response);
         //TODO: change format of response to be {clientInfo: {first_name, ...}, exercises: [{plan_duration, ...}]}
-        const {first_name, last_name, age, gender, height, weight} = profile;
+        const { first_name, last_name, age, gender, height, weight } = profile;
         setClientInfo({
           first_name,
           last_name,
@@ -88,33 +88,36 @@ function ClientContainer(props) {
           gender,
           height,
           weight,
-        })
-        const gotCards = [];
-        for (let i = 0; i < workout.length; i += 1) {
-          gotCards.push(
-            <ExercisesCard
-              addingWorkout={false}
-              plan_duration={response[i].plan_duration}
-              frequency={response[i].frequency}
-              exercise_id={response[i].exercise_id}
-              notes={response[i].notes}
-              client_id={response[i].client_id}
-              id={`${i}`}
-              authorizedView={authorizedView}
-              setExistingExercises={setExistingExercises}
-              existingExercises={existingExercises}
-              exercisesDropdown={exercisesDropdown}
-              setExercisesDropdown={setExercisesDropdown}
-              appendNewExcercise={appendNewExcercise}
-              append={append}
-              handleOpen={handleOpen}
-              handleClose={handleClose}
-              removeCard={removeCard}
-              cardNum={`${i}`}
-            />
-          );
+        });
+        if (workout !== 'no plan') {
+          const gotCards = [];
+          for (let i = 0; i < workout.length; i += 1) {
+            gotCards.push(
+              <ExercisesCard
+                name={workout[i].name}
+                addingWorkout={false}
+                plan_duration={workout[i].plan_duration}
+                frequency={workout[i].frequency}
+                exercise_id={workout[i].exercise_id}
+                notes={workout[i].notes}
+                client_id={workout[i].client_id}
+                id={`${i}`}
+                authorizedView={authorizedView}
+                setExistingExercises={setExistingExercises}
+                existingExercises={existingExercises}
+                exercisesDropdown={exercisesDropdown}
+                setExercisesDropdown={setExercisesDropdown}
+                appendNewExcercise={appendNewExcercise}
+                append={append}
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+                removeCard={removeCard}
+                cardNum={`${i}`}
+              />
+            );
+          }
+          setExerciseCards(gotCards);
         }
-        setExerciseCards(gotCards);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -166,7 +169,7 @@ function ClientContainer(props) {
 
   return (
     <div className='client-home-page-container'>
-      {clientInfo && <ClientCard clientInfo={clientInfo}/>}
+      {clientInfo && <ClientCard clientInfo={clientInfo} />}
       <div className='edit-card-container'>
         <button id='add-button-id' className='edit-button' onClick={handleOpen}>
           Add WorkOut
@@ -189,6 +192,7 @@ function ClientContainer(props) {
                 <h2 id='spring-modal-title'>Add WorkOut</h2>
                 <ModalForm
                   key='modal-submit'
+                  clientId={clientId}
                   setNewWorkoutPlan={setNewWorkoutPlan}
                   existingExercises={existingExercises}
                   exercisesDropdown={exercisesDropdown}
