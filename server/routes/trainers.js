@@ -27,8 +27,12 @@ router.put('/exercise', trainersControllers.editPlan, (req, res) => res.status(2
 // delete each exercise plan
 router.delete('/exercise', trainersControllers.deletePlan, (req, res) => res.status(200).send('deleted'))
 // get each client's profile
-router.get('/:client_id', trainersControllers.getProfile, (req, res) =>
-  res.status(200).json(res.locals.profile)
-);
+// router.get('/:client_id', trainersControllers.getProfile, (req, res) =>
+//   res.status(200).json(res.locals.profile)
+// );
+router.get('/:client_id', trainersControllers.getProfile, (req, res) => {
+  const { profile, workout } = res.locals;
+  return res.status(200).json({ profile, workout });
+});
 
 module.exports = router;

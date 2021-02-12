@@ -22,7 +22,7 @@ function Client() {
           height: response.profile.height,
           weight: response.profile.weight
         })
-        const exerciseCards = (response.workout).map((workout) => {
+        const exerciseCards = response.workout.map((workout) => {
           return (
             <ExercisesCard
               duration={workout.plan_duration}

@@ -7,7 +7,7 @@ clientsControllers.getExersices = (req, res, next) => {
   const filterSSID = ssid.replace(/[^0-9]/g, '');
   console.log('filter ssid>>>>', filterSSID);
   const param = [filterSSID];
-  db.query(
+db.query(
     `SELECT
         trainers.first_name AS trainerFirstName, trainers.last_name AS trainerLastName,
         c.first_name, c.last_name, c.age, c.weight, c.height, c.gender, c.client_id 

@@ -77,9 +77,10 @@ function ClientContainer(props) {
     fetch(`/api/trainers/${clientId}`)
       .then((res) => res.json())
       .then((response) => {
+        const {profile, workout} = response;
         console.log('api/trainers/clientid response: ', response);
         //TODO: change format of response to be {clientInfo: {first_name, ...}, exercises: [{plan_duration, ...}]}
-        const {first_name, last_name, age, gender, height, weight} = response[0];
+        const {first_name, last_name, age, gender, height, weight} = profile;
         setClientInfo({
           first_name,
           last_name,
@@ -89,14 +90,14 @@ function ClientContainer(props) {
           weight,
         })
         const gotCards = [];
-        for (let i = 0; i < response.length; i += 1) {
+        for (let i = 0; i < workout.length; i += 1) {
           gotCards.push(
             <ExercisesCard
-              plan_duration={response[i].plan_duration}
-              frequency={response[i].frequency}
-              exercise_id={response[i].exercise_id}
-              notes={response[i].notes}
-              client_id={response[i].client_id}
+              plan_duration={workout[i].plan_duration}
+              frequency={workout[i].frequency}
+              exercise_id={workout[i].exercise_id}
+              notes={workout[i].notes}
+              client_id={workout[i].client_id}
               id={`${i}`}
               authorizedView={authorizedView}
               setExistingExercises={setExistingExercises}
