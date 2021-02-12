@@ -10,39 +10,32 @@ import PublicRoute from '../routes/PublicRoute.jsx';
 
 import ClientContainer from './ClientContainer.jsx';
 import ClientsContainer from './ClientsContainer.jsx';
-
+import Header from './Header.jsx';
 
 function Trainer(props) {
-  console.log(props);
+  const [clientsInfo, setClientsInfo] = useState(null);
+  const [trainerInfo, setTrainerInfo] = useState({});
+
+  // get trainer info and client info for each client
+  // currently runs every initial time Trainer is rendered (/dashboard or /myclients/:client). this is what we want because client info might change
+  useEffect(() => {
+    fetch('/api/trainers/dashboard')
+    .then((res) => res.json())
+    .then((data) => {
+      const clientsInfo = data.clients;
+      const trainerInfo = data.trainer
+      setClientsInfo(clientsInfo);
+      setTrainerInfo(trainerInfo);
+    });
+  }, [])
+
   return (
     <div>
-      <h1>Trainer Page</h1>
-      <h1>Header</h1>
-      <h1>Sidebar</h1>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/dashboard'>Dashboard</Link>
-          </li>
-          <li>
-            <Link to='/trainer/client'>Trainer/Client</Link>
-          </li>
-          {/* <li>
-              <Link to="/trainer/dennis">Dennis</Link>
-            </li>
-            <li>
-              <Link to="/trainer/heidi">Heidi</Link>
-            </li> */}
-        </ul>
-      </nav>
-      <ClientContainer/>
-      {/* <Switch> */}
-      {/* <PrivateRoute path="/dashboard" component={ClientsContainer} /> */}
-      {/* should be PrivateRoute. path should be /trainer/:clientId but that doesn't work currently*/}
-      {/* weird. event the trainer/client route doesn't work currently */}
-      {/* <PrivateRoute path="/trainer/client" component={ClientContainer} />
-        <Route path="*" render={() => <h1>Not found</h1>} />
-      </Switch> */}
+      <Header bio={trainerInfo}/>
+      <Switch>
+        <Route path="/dashboard" render={() => <ClientsContainer clientsInfo={clientsInfo} />} />
+        <Route path="/myclients/:clientid" render={() => <ClientContainer />} />
+      </Switch>
     </div>
   );
 }
