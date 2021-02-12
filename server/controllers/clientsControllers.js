@@ -20,11 +20,13 @@ clientsControllers.getExersices = (req, res, next) => {
     .then((data) => {
       res.locals.profile = data.rows[0];
       db.query(
-        `SELECT wp.plan_duration, wp.frequency, wp.exercise_id, wp.notes 
+        `SELECT wp.plan_duration, wp.frequency, wp.exercise_id, wp.notes, e.name 
                 FROM workout_plan wp 
-                JOIN clients 
-                ON clients.client_id=wp.client_id
-                WHERE (clients.client_id=$1);`,
+                JOIN clients c
+                ON c.client_id=wp.client_id
+                JOIN exercises e
+            ON e.exercise_id=wp.exercise_id
+                    WHERE (c.client_id=$1) AND (wp.exercise_id=e.exercise_id);`,
         param
       )
         .then((data) => {

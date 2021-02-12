@@ -78,8 +78,8 @@ function ExercisesCard({
     <div id={`${cardNum}`} className='div-container'>
       <div className='client-card-container'>
         <div className='buttons-image-container'>
+          <h3 className ='exercise-name-header'>{`${name}`}</h3>
           <div className='image-side-container'>
-            <h3>{`${name}`}</h3>
             <img
               className='exercise-image'
               src='https://image.shutterstock.com/image-photo/father-working-out-doing-single-260nw-1669031986.jpg'

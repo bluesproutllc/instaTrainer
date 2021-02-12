@@ -5,7 +5,7 @@ import ClientCard from './ClientCard';
 function Client() {
   const [clientInfo, setClientInfo] = useState();
   const [getExercises, setgetExercises] = useState([]);
-  const [authorizedView, setAuthorizedView] = useState(false)
+  const [authorizedView, setAuthorizedView] = useState(false);
   //will remove use effect once enpoint has been connected with backend
 
   useEffect(() => {
@@ -20,12 +20,13 @@ function Client() {
           gender: response.profile.gender,
           age: response.profile.age,
           height: response.profile.height,
-          weight: response.profile.weight
-        })
+          weight: response.profile.weight,
+        });
         const exerciseCards = response.workout.map((workout) => {
           return (
             <ExercisesCard
-              duration={workout.plan_duration}
+              name={workout.name}
+              plan_duration={workout.plan_duration}
               frequency={workout.frequency}
               notes={workout.notes}
               authorizedView={authorizedView}
@@ -44,14 +45,14 @@ function Client() {
   // })
 
   //tentative have loop to show cards - will wait on backend endpoint connection later
-  const exerciseCards = [];
-  for (let i = 0; i < 5; i += 1) {
-    exerciseCards.push(<ExercisesCard />);
-  }
+  // const exerciseCards = [];
+  // for (let i = 0; i < 5; i += 1) {
+  //   exerciseCards.push(<ExercisesCard />);
+  // }
   return (
     <div className='client-home-page-container'>
       {clientInfo && <ClientCard clientInfo={clientInfo} />}
-      <div className='cards-feed-container'>{exerciseCards}</div>
+      <div className='cards-feed-container'>{getExercises}</div>
     </div>
   );
 }
