@@ -11,15 +11,15 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm } from "react-hook-form";
-import logo from "../assets/logo.png"
-import { Link } from "react-router-dom";
+import { useForm } from 'react-hook-form';
+import logo from '../assets/logo.png';
+import { Link } from 'react-router-dom';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color='inherit' href='https://material-ui.com/'>
         InstaTrainer
       </Link>{' '}
       {new Date().getFullYear()}
@@ -60,12 +60,12 @@ export default function SignupTrainer(props) {
   const classes = useStyles();
   const { register, handleSubmit, setValue } = useForm();
 
-  const [userType, setUserType] = useState('client');
+  const [userType, setUserType] = useState('trainer');
 
   const handleClick = (e) => {
-    if (userType === 'client') setUserType('trainer')
-    else setUserType('client')
-  }
+    if (userType === 'client') setUserType('trainer');
+    else setUserType('client');
+  };
 
   const onSubmit = (data) => {
     const values = {
@@ -74,29 +74,24 @@ export default function SignupTrainer(props) {
       userType: userType,
       first_name: data.first_name,
       last_name: data.last_name,
-      age: data.age,
-      height: data.height,
-      weight: data.weight,
-      gender: data.gender
-    }
-    console.log('values: ',values)
+    };
+    console.log('values: ', values);
     fetch('/api/auth/signup', {
       body: JSON.stringify(values),
       method: 'POST',
-      headers: { 'Content-Type': 'Application/JSON'},
+      headers: { 'Content-Type': 'Application/JSON' },
     })
-      .then(res => {
+      .then((res) => {
         // *** NEED TO CHECK IF USER IS CLIENT OR TRAINER
         if (res.status === 200) {
-          props.history.push('/dashboard')
-        } else alert("Error creating account. Please try again.")
-        
+          props.history.push('/dashboard');
+        } else alert('Error creating account. Please try again.');
       })
-      .catch(err => console.log('error creating user: ', err))
-  }
+      .catch((err) => console.log('error creating user: ', err));
+  };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component='main' maxWidth='xs'>
       <CssBaseline />
       <div className={classes.paper}>
         {/* <Avatar className={classes.avatar}> */}
@@ -105,71 +100,71 @@ export default function SignupTrainer(props) {
         {/* <Typography component="h1" variant="h5">
           Sign up
         </Typography> */}
-        <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={classes.form}
+          noValidate
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-              inputRef={register}
-                name="first_name"
-                variant="outlined"
+                inputRef={register}
+                name='first_name'
+                variant='outlined'
                 required
                 fullWidth
-                id="first_name"
-                label="First Name"
+                id='first_name'
+                label='First Name'
                 autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-              inputRef={register}
-                variant="outlined"
+                inputRef={register}
+                variant='outlined'
                 required
                 fullWidth
-                id="last_name"
-                label="Last Name"
-                name="last_name"
+                id='last_name'
+                label='Last Name'
+                name='last_name'
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-              inputRef={register}
-                variant="outlined"
+                inputRef={register}
+                variant='outlined'
                 required
                 fullWidth
-                id="username"
-                label="Username"
-                name="username"
+                id='username'
+                label='Username'
+                name='username'
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-              inputRef={register}
-                variant="outlined"
+                inputRef={register}
+                variant='outlined'
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
+                name='password'
+                label='Password'
+                type='password'
+                id='password'
               />
-             
             </Grid>
-            
-            
-
           </Grid>
           <Button
-            type="submit"
+            type='submit'
             fullWidth
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             className={classes.submit}
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justify='flex-end'>
             <Grid item>
-              <Link to='/login' variant="body2">
+              <Link to='/login' variant='body2'>
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -179,4 +174,3 @@ export default function SignupTrainer(props) {
     </Container>
   );
 }
-

@@ -150,6 +150,7 @@ function ClientContainer(props) {
     newCard.unshift(
       <ExercisesCard
         key='newcard'
+        name={card.name}
         plan_duration={card.plan_duration}
         frequency={card.frequency}
         exercise_id={card.exercise_id}

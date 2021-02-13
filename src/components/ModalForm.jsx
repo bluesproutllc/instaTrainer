@@ -49,6 +49,7 @@ function ModalForm(props) {
   const [duration, setDuration] = React.useState('');
   const [frequency, setSetFrequency] = React.useState('');
   const [notes, setNotes] = React.useState('');
+  const [exerciseName, setExerciseName] = useState('');
   const textareaRef = useRef(null);
   //const [exercisesDropdown, setExercisesDropdown] = useState();
   const showExercises = (category) => {
@@ -109,12 +110,14 @@ function ModalForm(props) {
       })
         .then((res) => res.text())
         .then((response) => {
+          console.log('this is the response',response)
           const newCard = {
             plan_duration: duration,
             frequency,
-            client_id: 12,
+            client_id: props.clientId,
             exercise_id: exercise,
             notes,
+            name: exerciseName,
           };
           props.append(newCard);
         })
@@ -184,7 +187,12 @@ function ModalForm(props) {
               {props.exercisesDropdown
                 ? props.exercisesDropdown.map((elem) => {
                     return (
-                      <MenuItem value={elem.exercise_id}>{elem.name}</MenuItem>
+                      <MenuItem
+                        onClick={() => setExerciseName(elem.name)}
+                        value={elem.exercise_id}
+                      >
+                        {elem.name}
+                      </MenuItem>
                     );
                   })
                 : null}
