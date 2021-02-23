@@ -5,7 +5,6 @@ const clientsControllers = {};
 clientsControllers.getExersices = (req, res, next) => {
   const { ssid } = req.cookies;
   const filterSSID = ssid.replace(/[^0-9]/g, '');
-  console.log('filter ssid>>>>', filterSSID);
   const param = [filterSSID];
   db.query(
     `SELECT

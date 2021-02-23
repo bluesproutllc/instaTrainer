@@ -54,7 +54,6 @@ function ClientContainer(props) {
   const [exerciseCards, setExerciseCards] = useState();
   const [newWorkoutPlan, setNewWorkoutPlan] = useState();
   const [clientInfo, setClientInfo] = useState();
-  console.log('clientInfo: ', clientInfo);
 
   const changeView = () => {
     setAuthorizedView(true);
@@ -78,7 +77,6 @@ function ClientContainer(props) {
       .then((res) => res.json())
       .then((response) => {
         const { profile, workout } = response;
-        console.log('api/trainers/clientid response: ', response);
         //TODO: change format of response to be {clientInfo: {first_name, ...}, exercises: [{plan_duration, ...}]}
         const { first_name, last_name, age, gender, height, weight } = profile;
         setClientInfo({
@@ -134,7 +132,6 @@ function ClientContainer(props) {
   };
   const removeCard = (e) => {
     const findCardElem = e.target.id.replace(/[^0-9]/g, '');
-    console.log(findCardElem);
     const cardElem = document.getElementById(findCardElem);
     function removeAllChildNodes(parent) {
       while (parent.firstChild) {

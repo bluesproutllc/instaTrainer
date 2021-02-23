@@ -16,18 +16,6 @@ trainersControllers.getClients = (req, res, next) => {
 trainersControllers.getProfile = (req, res, next) => {
     const {client_id} = req.params;
     const param = [client_id]
-    // db.query(`SELECT
-    //     wp.plan_duration, wp.frequency, wp.exercise_id, wp.notes,
-    //     c.first_name, c.last_name, c.age, c.weight, c.height, c.gender, c.client_id 
-    //     FROM clients c
-    //     JOIN workout_plan wp
-    //     ON c.client_id=wp.client_id
-    //     WHERE (c.client_id = $1);`, param) 
-    // .then(data => {
-    //     res.locals.profile = data.rows;
-    //     return next()
-    // })
-    // .catch(err => next({err}))
 
     db.query(
       `SELECT

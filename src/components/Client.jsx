@@ -13,7 +13,6 @@ function Client() {
     fetch(`/api/clients/dashboard/`)
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
         setClientInfo({
           first_name: response.profile.first_name,
           last_name: response.profile.last_name,
