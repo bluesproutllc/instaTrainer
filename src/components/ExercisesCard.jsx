@@ -59,7 +59,6 @@ function ExercisesCard({
   addingWorkout,
   name,
 }) {
-  //console.log(props)
   const classes = useStyles();
   const [openEdit, setOpenEdit] = React.useState(false);
   const [editExistingInfo, seteditExistingInfo] = useState();

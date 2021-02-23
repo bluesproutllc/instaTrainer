@@ -119,14 +119,12 @@ function ClientContainer(props) {
       })
       .catch((err) => console.log(err));
   }, []);
-  const getClientWorkouts = () => {};
   const getAsssignedWorkouts = () => {
     fetch('/api/clients/dashboard')
       .then((res) => res.json())
       .then((response) => console.log(response))
       .catch((err) => console.log(err));
   };
-  //getAsssignedWorkouts();
   const handleClose = () => {
     setOpen(false);
   };
@@ -143,7 +141,6 @@ function ClientContainer(props) {
 
   const newCard = [];
   const append = (card) => {
-    console.log('this is the newwork out', newWorkoutPlan);
     newCard.unshift(
       <ExercisesCard
         key='newcard'
@@ -161,7 +158,6 @@ function ClientContainer(props) {
         addingWorkout={false}
       />
     );
-    console.log('newcard in append');
     setappendNewExercise(newCard);
   };
 

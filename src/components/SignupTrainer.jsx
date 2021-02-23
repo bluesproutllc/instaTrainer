@@ -75,7 +75,6 @@ export default function SignupTrainer(props) {
       first_name: data.first_name,
       last_name: data.last_name,
     };
-    console.log('values: ', values);
     fetch('/api/auth/signup', {
       body: JSON.stringify(values),
       method: 'POST',

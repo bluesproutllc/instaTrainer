@@ -40,7 +40,6 @@ const useStylesSubmitButton = makeStyles((theme) => ({
 }));
 
 function ModalForm(props) {
-  ///console.log('exercisesDropdown prop>>', props.setNewWorkoutPlan);
   const classes = useStyles();
   const classesTextField = useStylesTextField();
   const classesSubmitButton = useStylesSubmitButton();
@@ -51,13 +50,10 @@ function ModalForm(props) {
   const [notes, setNotes] = React.useState('');
   const [exerciseName, setExerciseName] = useState('');
   const textareaRef = useRef(null);
-  //const [exercisesDropdown, setExercisesDropdown] = useState();
   const showExercises = (category) => {
-    console.log('category ', category);
     const chosenCategory = props.existingExercises.filter(
       (elem) => elem.category === category
     );
-    //console.log('dropwdown seleciton ', chosenCategory);
     props.setExercisesDropdown(chosenCategory);
     return chosenCategory;
   };
@@ -81,7 +77,6 @@ function ModalForm(props) {
         uniqueExercecises.push(elem.category);
       }
     });
-    console.log('unique data>>', uniqueExercecises);
     return uniqueExercecises.map((elem) => {
       return (
         <MenuItem key={elem} value={elem}>
@@ -93,8 +88,6 @@ function ModalForm(props) {
   function handleSubmit(event) {
     event.preventDefault();
     if (props.addingWorkout) {
-      console.log('addingwokrout is true');
-      console.log('props.clienId>>', props.clientId);
       fetch('/api/trainers/exercise', {
         method: 'POST',
         body: JSON.stringify({
@@ -110,7 +103,6 @@ function ModalForm(props) {
       })
         .then((res) => res.text())
         .then((response) => {
-          console.log('this is the response',response)
           const newCard = {
             plan_duration: duration,
             frequency,

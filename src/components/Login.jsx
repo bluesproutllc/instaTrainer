@@ -85,7 +85,6 @@ export default function Login(props) {
       password: data.password,
       userType: userType
     }
-    console.log(values)
     fetch('/api/auth/signin', {
       body: JSON.stringify(values),
       method: 'POST',

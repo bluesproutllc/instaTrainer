@@ -79,7 +79,6 @@ export default function SignupClient(props) {
       weight: data.weight,
       gender: data.gender
     }
-    console.log('values: ',values)
     fetch('/api/auth/signup', {
       body: JSON.stringify(values),
       method: 'POST',
