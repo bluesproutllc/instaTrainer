@@ -6,7 +6,6 @@ import { isTrainer } from '../utils.js'
 function Dashboard() {
   return (
     <div>
-      <h1>Dashboard Page</h1>
       {(isTrainer() ? <Trainer /> : <Client />)}
     </div>
   )

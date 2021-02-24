@@ -40,21 +40,44 @@ const Fade = React.forwardRef(function Fade(props, ref) {
   );
 });
 
-function ExercisesCard(props) {
-  //console.log(props)
+function ExercisesCard({
+  authorizedView,
+  existingExercises,
+  exercisesDropdown,
+  setExercisesDropdown,
+  appendNewExcercise,
+  setExistingExercises,
+  removeCard,
+  append,
+  cardNum,
+  plan_duration,
+  frequency,
+  exercise_id,
+  notes,
+  client_id,
+  setNewWorkoutPlan,
+  addingWorkout,
+  name,
+}) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [editExistingInfo, seteditExistingInfo] = useState();
   const handleOpen = () => {
-    setOpen(true);
+    setOpenEdit(true);
+    fetch('/api/trainers/exercises')
+      .then((res) => res.json())
+      .then((response) => seteditExistingInfo(response))
+      .catch((err) => console.log(err));
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenEdit(false);
   };
   return (
-    <div className='div-container'>
+    <div id={`${cardNum}`} className='div-container'>
       <div className='client-card-container'>
         <div className='buttons-image-container'>
+          <h3 className ='exercise-name-header'>{`${name}`}</h3>
           <div className='image-side-container'>
             <img
               className='exercise-image'
@@ -68,46 +91,69 @@ function ExercisesCard(props) {
             <div className='duration-frequency-container'>
               <div className='duration-box'>
                 <p id='duration-min-id' className='exercise-detail'>
-                  15min
+                  {`${plan_duration}`}min
                 </p>
                 <p className='exercise-detail'>Duration</p>
               </div>
               <div className='frequency-box'>
                 <p id='frequency-time-id' className='exercise-detail'>
-                  2 times/day
+                  {`${frequency}`}/day
                 </p>{' '}
                 <p className='exercise-detail'>Frequency</p>
               </div>
             </div>
             <p id='notes-id' className='exercise-detail'>
-              Notes: Its grind time. No days off bro!
+              Notes:{`${notes}`}
             </p>
           </div>
-          <div className='edit-card-container'>
-            <button className='edit-button' onClick={handleOpen}>
-              Edit
-            </button>
-            <button>Remove</button>
-            <Modal
-              aria-labelledby='spring-modal-title'
-              aria-describedby='spring-modal-description'
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div className={classes.paper}>
-                  <h2 id='spring-modal-title'>Spring modal</h2>
-                  <ModalForm />
-                </div>
-              </Fade>
-            </Modal>
-          </div>
+          {authorizedView ? (
+            <div className='edit-card-container'>
+              <button className='edit-button-id' onClick={handleOpen}>
+                Edit
+              </button>
+              <button
+                exercise_id={exercise_id}
+                client_id={client_id}
+                id={`id-button-${cardNum}`}
+                onClick={(e) => removeCard(e)}
+                className='remove-button-id'
+              >
+                Remove
+              </button>
+              <Modal
+                key='modal-form-edit'
+                aria-labelledby='spring-modal-title'
+                aria-describedby='spring-modal-description'
+                className={classes.modal}
+                open={openEdit}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={openEdit}>
+                  {editExistingInfo ? (
+                    <div className={classes.paper}>
+                      <h2 id='spring-modal-title'>Add WorkOut</h2>
+                      <ModalForm
+                        key='modal-form-edit'
+                        authorizedView={authorizedView}
+                        existingExercises={editExistingInfo}
+                        exercisesDropdown={exercisesDropdown}
+                        setExercisesDropdown={setExercisesDropdown}
+                        appendNewExcercise={appendNewExcercise}
+                        append={append}
+                        addingWorkout={addingWorkout}
+                        handleClose={handleClose}
+                      />
+                    </div>
+                  ) : null}
+                </Fade>
+              </Modal>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

@@ -16,18 +16,37 @@ trainersControllers.getClients = (req, res, next) => {
 trainersControllers.getProfile = (req, res, next) => {
     const {client_id} = req.params;
     const param = [client_id]
-    db.query(`SELECT
-        wp.plan_duration, wp.frequency, wp.exercise_id, wp.notes,
-        c.first_name, c.last_name, c.age, c.weight, c.height, c.gender, c.client_id 
-        FROM clients c
-        JOIN workout_plan wp
-        ON c.client_id=wp.client_id
-        WHERE (c.client_id = $1);`, param) 
-    .then(data => {
-        res.locals.profile = data.rows;
-        return next()
-    })
-    .catch(err => next({err}))
+
+    db.query(
+      `SELECT
+          c.first_name, c.last_name, c.age, c.weight, c.height, c.gender, c.client_id
+          FROM clients c
+          JOIN trainers
+          ON c.trainer_id=trainers.trainer_id
+          WHERE (c.client_id=$1);`,
+      param
+    )
+      .then((data) => {
+        res.locals.profile = data.rows[0];
+        db.query(`SELECT wp.plan_duration, wp.frequency, wp.exercise_id, wp.notes, e.image_url, e.name,
+        c.client_id
+             FROM clients c
+             JOIN workout_plan wp
+             ON c.client_id=wp.client_id
+             JOIN exercises e
+            ON e.exercise_id=wp.exercise_id
+                    WHERE (c.client_id=$1) AND (wp.exercise_id=e.exercise_id);`, param)
+        .then(data => {
+          if (data.rows.length === 0) {
+            res.locals.workout = 'no plan';
+            return next()
+          } else {
+            res.locals.workout = data.rows;
+            return next()
+          }
+        }).catch(err => next({err}))
+      })
+      .catch((err) => next({ err }));  
 }
 trainersControllers.getExercises = (req, res, next) => {
     db.query(`SELECT * FROM exercises`)

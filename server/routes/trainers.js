@@ -6,7 +6,10 @@ const router = express.Router();
 const trainersControllers = require('../controllers/trainersControllers');
 
 // get trainer's dashboard with all clients
-router.get('/dashboard', trainersControllers.getClients, (req, res) => res.status(200).json(res.locals.clients))
+router.get('/dashboard', trainersControllers.getClients, (req, res) => {
+  const trainerInfoAndClients = {trainer: {first_name: 'FIRSTNAME', last_name: 'LASTNAME', trainer_id: 'TRAINERID'}, clients: res.locals.clients};
+  res.status(200).json(trainerInfoAndClients);
+})
 // get all exercises when the modal pops up
 router.get('/exercises', trainersControllers.getExercises, (req, res) =>
   res.status(200).json(res.locals.exercises)
@@ -24,8 +27,12 @@ router.put('/exercise', trainersControllers.editPlan, (req, res) => res.status(2
 // delete each exercise plan
 router.delete('/exercise', trainersControllers.deletePlan, (req, res) => res.status(200).send('deleted'))
 // get each client's profile
-router.get('/:client_id', trainersControllers.getProfile, (req, res) =>
-  res.status(200).json(res.locals.profile)
-);
+// router.get('/:client_id', trainersControllers.getProfile, (req, res) =>
+//   res.status(200).json(res.locals.profile)
+// );
+router.get('/:client_id', trainersControllers.getProfile, (req, res) => {
+  const { profile, workout } = res.locals;
+  return res.status(200).json({ profile, workout });
+});
 
 module.exports = router;

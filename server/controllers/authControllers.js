@@ -6,11 +6,7 @@ const authControllers = {};
 
 // setSSIDCookie - store the user id from database in cookie
 authControllers.setSSIDCookie = (req, res, next) => {
-  // let randomNumber = Math.random().toString();
-  // randomNumber = randomNumber.substring(2, randomNumber.length);
-  // set cookie with key 'ssid' to value user's id and client type
   const ssid = `${res.locals.userType}${res.locals.userId}`;
-  console.log('res.locals.status:', res.locals.status);
   if (!res.locals.status) {
     res.cookie('ssid', ssid);
      res.locals.ssid = ssid;
